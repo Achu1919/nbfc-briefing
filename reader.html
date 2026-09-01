@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Briefing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet" />
+  <script src="data.js"></script>
+  <style>
+    :root {
+      --ink: #1d1d1f;
+      --mute: rgba(0,0,0,.46);
+      --body: rgba(0,0,0,.82);
+      --blue: #0071e3;
+      --link: #0066cc;
+      --glass: rgba(255,255,255,.46);
+      --glass-strong: rgba(255,255,255,.88);
+      --stroke: rgba(255,255,255,.62);
+      --edge: rgba(255,255,255,.85);
+      --rule: rgba(29,29,31,.12);
+      --shadow: 0 10px 28px rgba(20,18,16,.08);
+      --shadow-sheet: 0 22px 60px rgba(20,18,16,.16);
+      --sans: system-ui, -apple-system, "SF Pro Text", "Segoe UI", Helvetica, Arial, sans-serif;
+      --serif: "Newsreader", "Times New Roman", serif;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; }
+    body {
+      min-height: 100vh;
+      color: var(--ink);
+      font: 17px/1.5 var(--sans);
+      letter-spacing: -0.011em;
+      font-optical-sizing: auto;
+      background:
+        radial-gradient(1000px 560px at 12% -8%, rgba(176,208,255,.55), transparent 58%),
+        radial-gradient(860px 520px at 108% 6%, rgba(255,208,188,.48), transparent 52%),
+        radial-gradient(720px 480px at 80% 108%, rgba(190,228,210,.4), transparent 50%),
+        #ececf1;
+      -webkit-font-smoothing: antialiased;
+    }
+    body.evening {
+      --ink: #f5f5f7; --mute: rgba(255,255,255,.46); --body: rgba(255,255,255,.8);
+      --blue: #2997ff; --link: #2997ff;
+      --glass: rgba(22,22,24,.42); --glass-strong: rgba(36,36,40,.86);
+      --stroke: rgba(255,255,255,.1); --edge: rgba(255,255,255,.16);
+      --rule: rgba(255,255,255,.12);
+      --shadow: 0 10px 28px rgba(0,0,0,.28);
+      --shadow-sheet: 0 22px 60px rgba(0,0,0,.45);
+      background:
+        radial-gradient(900px 520px at 0 0, rgba(48,78,140,.42), transparent 55%),
+        radial-gradient(760px 500px at 100% 8%, rgba(92,48,40,.38), transparent 50%),
+        #050505;
+    }
+    .nav {
+      position: sticky; top: 12px; z-index: 8;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      max-width: 1080px; margin: 0 auto; padding: 8px 12px;
+      border: 1px solid var(--stroke); border-radius: 18px;
+      background: var(--glass);
+      box-shadow: var(--shadow), inset 0 1px 0 var(--edge);
+      backdrop-filter: saturate(180%) blur(22px);
+      -webkit-backdrop-filter: saturate(180%) blur(22px);
+    }
+    .nav::after {
+      content: "";
+      position: absolute; left: 18px; right: 18px; top: 100%;
+      height: 28px;
+      pointer-events: none;
+      background: linear-gradient(to bottom, color-mix(in srgb, #ececf1 70%, transparent), transparent);
+    }
+    body.evening .nav::after { background: linear-gradient(to bottom, rgba(5,5,5,.55), transparent); }
+    .mark { font-weight: 600; letter-spacing: -.03em; }
+    .nav-right { display: flex; gap: 8px; align-items: center; }
+    select, .pill {
+      min-height: 44px; min-width: 44px; border: 0; border-radius: 980px;
+      background: var(--glass-strong); color: var(--ink);
+      padding: 0 16px; font: 14px/1 var(--sans);
+      transition: transform 100ms ease-out, background 160ms ease;
+    }
+    .pill { cursor: pointer; }
+    select:active, .pill:active { transform: scale(0.97); }
+    select:focus, .pill:focus { outline: 2px solid var(--blue); outline-offset: 2px; }
+
+    .page { max-width: 1080px; margin: 0 auto; padding: 8px 22px 96px; }
+    .mast {
+      text-align: center;
+      padding: 54px 12px 28px;
+    }
+    .word {
+      margin: 0;
+      font: 600 clamp(52px, 10vw, 92px)/.86 var(--sans);
+      letter-spacing: -.055em;
+      text-wrap: balance;
+      font-optical-sizing: auto;
+    }
+    .issue {
+      margin: 16px 0 0;
+      color: var(--mute);
+      font: 500 15px/1.3 var(--serif);
+      font-style: italic;
+    }
+
+    .desks {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 8px 0 34px;
+    }
+    .desk {
+      min-height: 96px;
+      border: 1px solid var(--stroke);
+      border-radius: 20px;
+      background: var(--glass);
+      color: inherit;
+      padding: 16px 16px 14px;
+      text-align: left;
+      cursor: pointer;
+      box-shadow: inset 0 1px 0 var(--edge);
+      backdrop-filter: blur(16px) saturate(140%);
+      -webkit-backdrop-filter: blur(16px) saturate(140%);
+      transition: transform 100ms ease-out, background 160ms ease;
+    }
+    .desk:hover { background: rgba(255,255,255,.58); }
+    body.evening .desk:hover { background: rgba(48,48,52,.62); }
+    .desk:active:not([disabled]) { transform: scale(0.97); }
+    .desk.on {
+      background: var(--glass-strong);
+      box-shadow: var(--shadow), inset 0 1px 0 var(--edge);
+      outline: 1.5px solid var(--ink);
+    }
+    .desk[disabled] { cursor: default; opacity: .58; }
+    .desk[disabled]:hover { background: var(--glass); }
+    .desk b {
+      display: block;
+      font-size: 11px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 6px;
+    }
+    .desk span { display: block; font-size: 13px; color: var(--body); }
+    .desk em { display: block; margin-top: 6px; font-style: normal; font-size: 12px; color: var(--mute); }
+
+    .sheet {
+      border: 1px solid var(--stroke);
+      border-radius: 28px;
+      background: var(--glass-strong);
+      box-shadow: var(--shadow-sheet), inset 0 1px 0 var(--edge);
+      backdrop-filter: saturate(180%) blur(32px);
+      -webkit-backdrop-filter: saturate(180%) blur(32px);
+      padding: 48px 56px 72px;
+    }
+    .dept {
+      margin: 0 0 10px;
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+    .headline {
+      margin: 0 0 14px;
+      font: 500 clamp(36px, 6vw, 58px)/1.04 var(--serif);
+      letter-spacing: -.03em;
+      text-wrap: balance;
+      font-optical-sizing: auto;
+    }
+    .byline {
+      margin: 0 0 28px;
+      color: var(--mute);
+      font-size: 14px;
+    }
+    .lede {
+      margin: 0 0 28px;
+      max-width: 46em;
+      font: italic 500 23px/1.38 var(--serif);
+      color: var(--ink);
+      text-wrap: pretty;
+    }
+    .md {
+      max-width: 48em;
+      color: var(--body);
+      font: 20px/1.65 var(--serif);
+      letter-spacing: 0;
+      text-wrap: pretty;
+    }
+    .md h1 { font: 500 32px/1.15 var(--serif); margin: 36px 0 12px; letter-spacing: -.02em; text-wrap: balance; }
+    .md h2 { font: 500 26px/1.18 var(--serif); margin: 32px 0 10px; text-wrap: balance; }
+    .md h3 { font: 500 22px/1.2 var(--serif); margin: 26px 0 8px; }
+    .md p { margin: 0 0 16px; }
+    .md p:first-of-type::first-letter {
+      float: left;
+      padding-right: 10px;
+      font: 500 4.4rem/.78 var(--serif);
+      color: var(--ink);
+    }
+    .md ul { padding-left: 1.15em; margin: 0 0 16px; }
+    .md li { margin-bottom: 7px; }
+    .md hr { border: 0; border-top: 1px solid var(--rule); margin: 28px 0; }
+    .md a { color: var(--link); }
+    .md table { width: 100%; border-collapse: collapse; margin: 12px 0 20px; font: 15px/1.4 var(--sans); font-variant-numeric: tabular-nums; }
+    .md th, .md td { border-bottom: 1px solid var(--rule); padding: 8px 8px 8px 0; text-align: left; vertical-align: top; }
+    .md th { color: var(--mute); font-weight: 600; }
+    .empty {
+      padding: 48px 8px 20px;
+      color: var(--mute);
+      font: italic 22px/1.4 var(--serif);
+    }
+    @media (max-width: 720px) {
+      .desks { grid-template-columns: 1fr; }
+      .sheet { padding: 28px 20px 48px; border-radius: 20px; }
+      .md { font-size: 18px; }
+      .nav { top: 0; border-radius: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .desk, .pill, select { transition: none; }
+      .desk:active:not([disabled]), select:active, .pill:active { transform: none; }
+    }
+    @media (prefers-reduced-transparency: reduce) {
+      .nav, .desk, .sheet {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        background: #fff;
+      }
+      body.evening .nav, body.evening .desk, body.evening .sheet { background: #1d1d1f; }
+    }
+    @media (prefers-contrast: more) {
+      .nav, .desk, .sheet { border-color: var(--ink); }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="mark">The Briefing</div>
+    <div class="nav-right">
+      <select id="daySelect" aria-label="Choose a date"></select>
+      <button class="pill" id="modeBtn" type="button">Evening</button>
+    </div>
+  </nav>
+
+  <div class="page">
+    <header class="mast">
+      <p class="word">The Briefing</p>
+      <p class="issue" id="issueLine">Saturday edition</p>
+    </header>
+    <div id="desks" class="desks"></div>
+    <article class="sheet" id="sheet"></article>
+  </div>
+
+  <script>
+    const data = window.BRIEFING || { days: [] };
+    const state = {
+      day: data.days[0]?.id || null,
+      report: null,
+      mode: localStorage.getItem("nbfc-briefing-mode") || "morning"
+    };
+    const $ = (id) => document.getElementById(id);
+    const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c]));
+    function inline(s) {
+      return esc(s)
+        .replace(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g, '<a href="$2" target="_blank" rel="noreferrer">$1</a>')
+        .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
+        .replace(/\*([^*]+)\*/g, "<em>$1</em>");
+    }
+    function markdown(src) {
+      const lines = src.split(/\r?\n/), out = [];
+      let i = 0;
+      while (i < lines.length) {
+        const line = lines[i].trim();
+        if (!line) { i++; continue; }
+        const h = line.match(/^(#{1,3})\s+(.+)/);
+        if (h) { out.push(`<h${h[1].length}>${inline(h[2])}</h${h[1].length}>`); i++; continue; }
+        if (/^---+$/.test(line)) { out.push("<hr>"); i++; continue; }
+        if (line.startsWith("|")) {
+          const rows = [];
+          while (i < lines.length && lines[i].trim().startsWith("|")) {
+            const cells = lines[i].trim().replace(/^\||\|$/g, "").split("|").map((x) => x.trim());
+            if (!cells.every((x) => /^:?-{2,}:?$/.test(x))) rows.push(cells);
+            i++;
+          }
+          if (rows.length) {
+            out.push("<table><thead><tr>" + rows[0].map((x) => `<th>${inline(x)}</th>`).join("") + "</tr></thead><tbody>" + rows.slice(1).map((r) => "<tr>" + r.map((x) => `<td>${inline(x)}</td>`).join("") + "</tr>").join("") + "</tbody></table>");
+          }
+          continue;
+        }
+        if (/^[-*]\s+/.test(line)) {
+          const items = [];
+          while (i < lines.length && /^[-*]\s+/.test(lines[i].trim())) {
+            items.push(`<li>${inline(lines[i].trim().replace(/^[-*]\s+/, ""))}</li>`);
+            i++;
+          }
+          out.push(`<ul>${items.join("")}</ul>`);
+          continue;
+        }
+        const para = [line];
+        i++;
+        while (i < lines.length && lines[i].trim() && !/^#{1,3}\s|^---+$|^\||^[-*]\s+/.test(lines[i].trim())) {
+          para.push(lines[i].trim());
+          i++;
+        }
+        out.push(`<p>${inline(para.join(" "))}</p>`);
+      }
+      return out.join("");
+    }
+    function currentDay() { return data.days.find((d) => d.id === state.day) || data.days[0]; }
+    function firstReadable(day) { return day?.reports.find((r) => !r.missing) || day?.reports[0]; }
+    function currentReport(day) { return day.reports.find((r) => r.id === state.report) || firstReadable(day); }
+    function setMode() {
+      document.body.classList.toggle("evening", state.mode === "evening");
+      $("modeBtn").textContent = state.mode === "evening" ? "Morning" : "Evening";
+      localStorage.setItem("nbfc-briefing-mode", state.mode);
+    }
+    function render() {
+      const day = currentDay();
+      if (!day) { $("sheet").innerHTML = '<p class="empty">Nothing has been filed yet.</p>'; return; }
+      if (!state.report || !day.reports.some((r) => r.id === state.report)) state.report = firstReadable(day).id;
+      const report = currentReport(day);
+      $("issueLine").textContent = day.label;
+      $("daySelect").innerHTML = data.days.map((d) => `<option value="${d.id}">${esc(d.label)}</option>`).join("");
+      $("daySelect").value = day.id;
+      $("desks").innerHTML = day.reports.map((r) => {
+        const note = r.missing ? (r.expected ? "Did not file" : "Monday only") : "Ready to read";
+        return `<button class="desk ${r.id === report.id ? "on" : ""}" data-report="${r.id}" ${r.missing ? "disabled" : ""}>
+          <b>${esc(r.section)}</b>
+          <span>${esc(r.question)}</span>
+          <em>${esc(r.agent)} · ${esc(r.when)} · ${note}</em>
+        </button>`;
+      }).join("");
+      if (report.missing) {
+        $("sheet").innerHTML = `<p class="dept">${esc(report.section)}</p><p class="empty">${esc(report.excerpt)}</p>`;
+        return;
+      }
+      const body = markdown(report.content).replace(/^<h1>[\s\S]*?<\/h1>/, "");
+      $("sheet").innerHTML = `
+        <p class="dept">${esc(report.section)}</p>
+        <h1 class="headline">${esc(report.title)}</h1>
+        <p class="byline">${esc(report.kind)} · ${esc(report.agent)} · ${esc(report.when)} · ${esc(day.label)}</p>
+        <p class="lede">${esc(report.excerpt)}</p>
+        <div class="md">${body}</div>`;
+    }
+    $("daySelect").addEventListener("change", (e) => { state.day = e.target.value; state.report = null; render(); window.scrollTo({ top: 0, behavior: "smooth" }); });
+    $("modeBtn").addEventListener("click", () => { state.mode = state.mode === "evening" ? "morning" : "evening"; setMode(); });
+    document.body.addEventListener("click", (e) => {
+      const desk = e.target.closest("[data-report]");
+      if (!desk || desk.disabled) return;
+      state.report = desk.dataset.report;
+      render();
+      $("sheet").scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+    setMode();
+    render();
+  </script>
+</body>
+</html>

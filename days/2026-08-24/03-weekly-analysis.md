@@ -1,0 +1,159 @@
+# 📋 NBFC Weekly Analysis — Week of 17–23 August 2026
+
+*Prepared for: Achu (Sai Krishna), FP&A, Muthoot Fincorp Ltd · Publication date: Monday, 24 August 2026*
+
+---
+
+## Executive Summary
+
+- **The gold-loan "credit gold rush" went mainstream this week.** JPMorgan initiated coverage on all three listed gold lenders (Overweight; IIFL ₹750, Muthoot Finance ₹3,400, Manappuram ₹395), calling gold loans a *structural* story that could reach ~10% of system credit within five years. Simultaneously, Aditya Birla Capital announced a 1,000-branch gold loan foray, L&T Finance plans 500 new gold branches this fiscal, and Godrej Capital is co-lending with Indel Money — while MCX gold crossed ₹1.6 lakh/10 gm on the back of a surprise US Treasury liquidity-support move. Gold financier stocks rallied 5–7% over Thu–Fri; Muthoot Finance closed Friday at ₹3,047.
+- **The revolving-credit draft dominated the regulatory agenda.** NBFCs (led by Bajaj Finance, Tata Capital, Shriram Finance) escalated their pushback: FIDC is collating a formal representation (feedback deadline **28 August**), the industry claims ~₹2 lakh crore of affected AUM growing 15–20% a year, and RBI Deputy Governor Murmu publicly clarified ("our regulation will not come in the way of any business activity") while RBI officials separately met NBFC heads to stress compliance, SRO discipline and the digital lending framework.
+- **Q1 FY27 earnings digest confirmed sector momentum with a margin caveat.** 360 ONE Capital's NBFC universe (ex-power financiers) delivered NII +23.9%, operating profit +24.9%, PAT +36.9% YoY, AUM ~+19% — but Muthoot Finance saw *sharper-than-expected ~300bps NIM compression*, and HFCs were the laggard (AUM +5.6%, LIC Housing cut FY27 guidance to 8–10%). Jefferies called June Q "another strong quarter": +38% profit growth, +20% AUM, lower credit costs.
+- **Funding conditions turned a corner, for now.** RBI's concessional FCNR(B)/FX swap window — which drew $65.4bn of FCNR(B) deposits into the system — was closed early on 22 August after total inflows hit $72.8bn. Shriram Finance reported its incremental cost of funds down 60–70bps post-MUFG, and its novel rating-reset clause on its $1.3bn syndicated loan saved 60–80bps — a template NBFC treasuries will copy.
+- **Microfinance kept healing.** CRIF High Mark's MicroLend report showed the sector loan book stable at ₹3.33 lakh crore, PAR 1–180 down to **2.3% from 7.1% a year ago**, and NBFC-MFIs' portfolio share up to 44% — while West Bengal and smaller lenders remain the weak spots.
+
+---
+
+## 📊 Week in Numbers
+
+| Metric | This Week (21 Aug) | Previous Week (14 Aug) | Change |
+|--------|-----------|--------------|--------|
+| Nifty Financial Services | 26,261.00 | 26,213.65 | **+0.18%** (outperformed Nifty) |
+| Nifty Bank | 57,761.95 | 57,491.10 | **+0.47%** |
+| Nifty 50 / Sensex | 24,252 / 77,540.83 | 24,366 / 78,009.25 | −0.5% / −0.6% (2nd consecutive weekly loss) |
+| India 10Y G-Sec Yield | ~6.87–6.88% | 6.80% (17 Aug) | **+7–8 bps** (oil + US yields) |
+| RBI Repo Rate | 5.25% (neutral) | 5.25% | Unchanged (4th straight hold, 5 Aug MPC) |
+| Key NBFC stocks | Muthoot Fin ₹3,047 (+3% Fri); Manappuram +2%; IIFL +6% | — | Gold trio +5–7% over Thu–Fri; Bajaj Fin flat Fri (+12.6% YTD) |
+
+*Also this week:* MCX gold futures crossed **₹1,60,000/10 gm** (Oct expiry), Dec ~₹1.62L, Feb ~₹1.64L; 24K spot ~₹1,62,790/10 gm on Saturday; international spot $4,526/oz — a two-month high. Muthoot Finance remains **−22% YTD** even after the rally. FIIs sold ₹543 cr on Friday while DIIs bought ₹2,124 cr.
+
+---
+
+## 🏛️ Regulatory & Policy Watch
+
+**1. Revolving credit draft — week of maximum noise (deadline: 28 August).** The RBI's 6 August draft (term-loans-only for NBFCs) moved from shock to engagement this week:
+- **Industry pushback quantified:** NBFC execs told ET/BS the prohibition would hit products with **>₹2 lakh crore AUM**, growing **15–20% annually** and poised to nearly double in four years; ~90% of this lending serves MSMEs and individuals. Their case: no adverse credit behaviour since 2021-22-style product fixes, regulatory arbitrage in favour of banks, and higher borrowing costs from forced re-underwriting. FIDC (Raman Aggarwal) is collating member views for a formal submission this week.
+- **Regulator signal:** At the Banking Transformation Summit (19 Aug), RBI DG **Shirish Chandra Murmu** told CNBC-TV18 the draft is about *clarity, not prohibition* — "revolving credit as such is not currently permitted for NBFCs… our regulation will not come in the way of any business activity… this is only a draft, feedback is welcome." Separately, RBI officials met NBFC heads and stressed stronger internal audit/compliance, early identification of product risks, SROs as "first line of defence" (not parallel regulators), and full alignment with the digital lending framework + Digital Personal Data Protection Act.
+- **Industry anxiety aired:** Piramal Finance MD Jairam Sridharan warned a literal reading could hit loan-against-shahares, loan-against-mutual-funds, flexi loans, **UPI credit lines and digital lending "sunrise products"**. Brokerage impact math (from early-August sell-off): LIL Capital est. Bajaj flexi book ~₹70,000 cr (~13% of AUM) → ~13bps NIM impact; Jefferies ~1–1.5% EPS hit; IIFL Capital: flexi ~15% of consolidated AUM.
+- **Muthoot Fincorp lens:** gold loans are fixed-term products and should satisfy the term-loan definition — but audit every product for draw-repay-redraw features (incl. incremental drawings against incremental gold) before the feedback deadline. The FIDC submission and Aug 28 comments should be watched for carve-outs (LAP, SCF, MSME working capital).
+
+**2. RBI draft Interest Rate Directions, 2026 (comments due 11 September) — the quiet big one.** A harmonised pricing framework: floating-rate resets within **3 months** (vs annual repricing of many NBFC bank borrowings today → faster transmission *into* NBFC funding costs), MCLR+ style floors that end "PLR-minus" home-loan marketing (Kotak: negative for prime HFCs like LICHF/Bajaj Housing), and a **board-approved APR ceiling for personal/microfinance loans ≤₹50,000** (no numerical cap proposed). EBLR linkage would *not* be mandatory for NBFCs/HFCs. Effective ~April 2027; existing loans migrate by 1 April 2029.
+
+**3. FCNR(B)/swap window closed early (RBI, 22 Aug).** The concessional USD-INR swap drew **$72.848bn** through 21 Aug — FCNR(B) $65.397bn, OFCBs $4.86bn, ECBs $2.591bn — so RBI pulled the plug ~5 weeks early. This is the single most important *funding* event of the quarter for NBFCs and banks.
+
+**4. Enforcement pulse:** RBI fined Progfin (₹2.70 lakh) and Shri Ram Finance Corporation (₹8.10 lakh — management change without RBI approval + KYC lapses) on 21 Aug; the month's penalty wave now spans 8 NBFCs, with **Muthoot MCred's ₹3.10 lakh penalty (14 Aug) for NPA-upgrades-without-full-arrears** remaining the group-relevant item — especially with the new PCA framework (NNPA>6% threshold) now in force.
+
+**5. Context from the last fortnight:** NBFC-UL list 2026-27 (17 entities; Muthoot Finance in, Muthoot Fincorp stays Middle Layer), the 31 July package of 5 Master Directions (CFSS, PCA, Fair Practices, audit, compliance), and (from 1 July) registration/reserve-fund exemption for non-deposit-taking NBFCs with assets <₹1,000 cr.
+
+---
+
+## 📈 Financial Performance Analysis
+
+**Q1 FY27 sector digest (360 ONE Capital, 22 Aug):** NII **+23.9% YoY**, operating profit +24.9%, PAT +36.9%, AUM ~+19% YoY; credit demand resilient despite West Asia crisis; early delinquency indicators show "no discernible stress". Segment splits:
+- **Vehicle financiers:** AUM +16.8% YoY (accelerating from 16.4%) — strongest surprise of the quarter.
+- **Gold financiers:** AUM +47.1% YoY but *moderating* after gold-price stabilisation and the new LTV guidelines; **Muthoot Finance NIM compression ~300bps, sharper than expected** — yields, not credit, are now the gold sector's key monitorable.
+- **HFCs:** AUM +5.6% YoY (below expectations; elevated balance transfers out of LICHF); LICHF cut FY27 growth guidance to 8–10% from 10–12%.
+- **Power financiers:** weakest — +2.3% YoY, −0.3% QoQ.
+
+**Jefferies (19 Aug)** — "June Q was another strong quarter… +38% profit growth led by 20% AUM growth, range-bound NIMs and lower credit costs"; top picks Bajaj Finance (TP ₹1,280), Cholamandalam (₹2,100), Aditya Birla Capital (₹475, ~20% upside), Shriram Finance (₹1,210 vs ₹1,099 CMP). **Nomura (21 Aug)** raised Bajaj Finance TP to ₹1,270 (from ₹1,140), pencilling 25% AUM growth in FY27 and a Q3-FY27 inflection from gold loans/MSME recovery. **SBI Securities** reiterates "buy on dips": 15–25% loan-growth guidance across the sector. **Motilal Oswal MF** prefers NBFCs over large private banks on FCNR-funded cost relief and healthy asset quality.
+
+**Housing finance micro-pulse:** PNB Housing (book ₹89,670 cr; NIM 3.50% vs 3.74% a year ago) is pushing into micro-housing loans and small-developer finance, and bought ₹146 cr of affordable portfolios via direct assignment in Q1; Aadhar Housing is building two-way co-lending with two PSBs (AUM ₹31,364 cr, +18%); Home First is raising ₹150 cr NCDs (approved 21 Aug); LICHF's CEO publicly called for **capping affordable-housing rates** ("15–16% is not affordable") — a signal of how intense yield competition has become at the bottom of the market.
+
+---
+
+## 💳 Credit & Lending Trends
+
+- **Bank credit growth picked up in the early-August fortnight** with NBFC and gold-loan segments "leading the charge" (CNBC-TV18, 17 Aug); analysts call the uptick real but not a corporate-capex revival. ICRA's FY27 framework remains 11.0–11.7% bank credit growth (vs 15.9% FY26).
+- **Reference frame (RBI sectoral credit, June):** NBFC/HFC credit +14.4% YoY to ₹59.31 lakh crore; retail +20.3%; **loans against gold jewellery up ~69% YoY** within NBFC books (₹3.42 lakh crore), housing +11.4%, vehicles +15.2%.
+- **The gold lending market is being re-measured:** CRIF puts the total (bank + NBFC) gold loan market at **₹18.6 lakh crore as of March 2026, +50.4% YoY**; ICRA projects organized gold loans crossing **₹30 lakh crore by March 2028** (30%+ CAGR); bank gold loans grew **105% YoY in May** (₹5.2 lakh crore, RBI data). JPMorgan estimates banks hold ~80% of the market; gold loans were 41% of retail *disbursements* in FY26 vs 18% in FY23 — a substitution away from unsecured personal/business loans (55%→41%).
+- **Lending-rate direction:** new RBI rate norms (3-month resets) will accelerate bank-rate pass-through to NBFC funding; deposit-rate pressure eased with FCNR inflows — PNB Housing's cost of borrowings fell to 7.36% (from 7.76% a year ago); Shriram's *incremental* cost of funds is down 60–70bps and it expects liability costs to fall ~100bps over 2–2.5 years.
+- **MSME/fintech credit:** NBFC-fintech portfolio +21.2% YoY (June, CRIF/UFF) — originations ₹79,900 cr in Q1, +53% YoY by value, with tickets >₹1 lakh now 26.3% of the book (21.6% in June 2024); new-to-credit share deliberately trimmed to 11.4%. Credit geography is widening — new states emerging as growth centres (Business Standard), credit penetration still far below DM levels.
+
+---
+
+## ⚠️ Asset Quality Deep Dive
+
+- **Gold loans remain the cleanest asset class:** 90+ dpd just **0.2%** (Mar-26) vs 0.4% (Mar-23) even as books compound at ~50%; JPMorgan: ~0.2% bad-loan ratio vs 0.5–0.6% for mortgages/autos and >1% for unsecured. The new April LTV norms (LTV on *total obligation* incl. accrued interest for bullet loans → 10–15% lower disbursals; 12-month bullet tenure cap) nudge portfolios toward EMI/interest-servicing structures and trim rollover risk; ICRA sees lenders shifting product mix accordingly. Rising gold prices (₹1.6L+) rebuild collateral buffers after 2026's correction.
+- **Microfinance: continued healing, unevenly.** PAR 1–180 **2.3% in June vs 7.1% a year ago**; PAR 31–180 1.6% (from 2.0% in March); average ticket ₹62,100 (vs ₹53,600); 10.3 cr active loans / 6.6 cr borrowers; NBFC-MFIs' share of portfolio up to **44%** (from 38.8%) as banks retreat — bigger MFIs are "preparing to grab the gap". Caveats: West Bengal and smaller lenders remain stressed; Q1 disbursements ₹61,100 cr (−19.9% QoQ seasonality, +18.6% YoY — stronger than last year's −23.5%).
+- **No systemic stress signals:** 360 ONE sees stressed assets broadly stable across segments; Jefferies notes credit costs *below* expectations at several lenders; El Niño/monsoon and West Asia effects haven't shown up in early delinquency data. Bajaj Housing's stage-3 is 0.29%, stage-2 0.32% (best-in-class).
+- **IRAC discipline under the microscope:** Muthoot MCred's penalty (NPA upgraded without full arrears) matters precisely because the new PCA framework (NNPA >6% threshold 1; RBI may publish PCA actions) raises the cost of classification errors. FP&A should treat SMA/ARO monitoring as a board-level control.
+- **Legacy/wholesale cleanup:** Delhi Police EOW told the Supreme Court it found **no direct financial link** between Indiabulls (now Sammaan Capital) loans and Gehlaut-linked entity investments across DLF/Chordia/Vatika/Americorp cases — 197 loan accounts (₹8,267 cr sanctioned, ₹11,074 cr collected) all closed. A confidence item for Sammaan's post-restructuring franchise.
+
+---
+
+## 🔄 Deals & Strategic Moves
+
+- **ABCL enters gold loans (20 Aug):** 200–300 dedicated branches by March 2027, ~1,000 in 3 years, leveraging ABCD digital + distribution. Q1 FY27: AUM ₹1,67,456 cr (+28% YoY), PBT ₹1,222 cr (+32%). Joins Tata Capital (Yogloans, 88.6%, July) and Godrej (Kanakadurga book) — the "Big Groups aren't just chasing glitter" narrative crystalised this week (ET).
+- **L&T Finance:** 500 new gold branches this fiscal (330 → 830), gold book to grow >50% this year on a low base of the ₹1,350 cr Paul Merchants acquisition (₹537 cr).
+- **Godrej Capital–Indel Money co-lending:** ₹200 cr initial gold-loan book this quarter (80:20 exposure split).
+- **Shriram Finance / MUFG follow-through:** CEO Parag Sharma (ET interview): no fresh equity needed for **5 years**; 18–20% credit growth; NIM at 9.04% with an extra ~50–60bps from MUFG investment income, steady-state ~8.5%; deposits now 28% of liabilities (≈45–50% senior-citizen money, ~42-month duration); plans **$300–500mn offshore loans Jan–Mar 2027**. The ₹39,618 cr / 20% MUFG stake (₹840.93/share, closed April) keeps paying off: a **rating-reset clause** on its $1.3bn 2024 syndicated loan triggered post-upgrade savings of **60–80bps** (20 Aug) — likely to become standard in Indian NBFC external borrowings.
+- **Debt markets:** Home First ₹150 cr NCD (listed, secured); Indian Bank raised $400mn via 4-yr GIFT City bonds (18 Aug) toward a $1bn 2026 offshore programme; Shriram's $300–500mn pipeline; private credit kept humming ($3.5bn H1 2026, real estate-led).
+- **MobiKwik completes its NBFC pivot** (18 Aug): digital lending business transferred to NBFC subsidiary MDSPL (₹60.85 cr infusion; ex-Bajaj Markets CBO hired; target ₹1,000+ cr quarterly disbursals).
+
+---
+
+## 💻 Digital & Innovation Pulse
+
+- **NBFC-fintech lending matured this quarter:** +21.2% YoY growth (June), ~9% of total NBFC outstanding; originations ₹79,900 cr (+53% value, +21% volume, Q1 FY27); shift to higher tickets (>₹1 lakh = 26.3% of book); NTC borrower share cut to 11.4% — deliberate risk calibration, not de-growth.
+- **UPI credit is scaling beyond metros:** Kiwi's credit-line-on-UPI (Kiwi Postpaid, with Yes Bank) hit ~50% Tier-II/III users, one-third self-employed, ~30% Gen Z, ~95% approval within 2 hours — and ~half of users were new to credit cards. Navi is using its UPI scale to push Finserv into merchant finance and loans-against-mutual-funds.
+- **RBI's UPI MDR framework is coming** (Murmu, 19 Aug): NPCI will issue it; enabling provisions are in place; threshold and fee-distribution still being worked out — watch for the announcement's impact on small-ticket credit economics.
+- Two regulatory vectors bind digital lending: the revolving-credit draft (UPI credit lines/flexi products in scope per Piramal) and the APR-ceiling proposal for ≤₹50,000 loans — fintechs chasing BNPL-style economics face a repricing of risk.
+
+---
+
+## 🌍 Macro Context
+
+- **Rates:** Repo at 5.25% (neutral) after the 5 Aug MPC — 4th straight hold, FY27 GDP projection 6.7%. The 10Y G-Sec crept up to ~6.87–6.88% (+7–8bps on the week) as crude spiked on US–Iran tension and global yields firmed on the US Treasury's surprise plan to *double* liquidity-support buybacks of long-dated notes (the same announcement that lit a fire under gold).
+- **Liquidity & flows:** FCNR(B)/swap window drew $72.8bn and closed early — system liquidity relief for the next few quarters ("pushed deposit concerns out by a year," per Murmu) — but a late-cycle risk is emerging: with the window shut, deposit competition could re-accelerate in FY27-H2. FIIs remain net sellers of equities (₹543 cr Friday), DIIs absorbing (₹2,124 cr). BCG flags the rupee at all-time lows lifting ECB costs and FII outflows of $20bn+ in early 2026 pressuring NBFC valuations/capital plans.
+- **Activity:** India composite PMI rebounded to **54.6 in August** from July's 52-month low (HSBC); core sector grew 5.4% in July (6.0% June) — electricity/cement/steel leading, hydrocarbons weak. Credit demand commentary from managements: resilient, with West Asia and El Niño not yet showing up in delinquency or disbursement data.
+- **For funding costs specifically:** lower bank MCLRs + FCNR abundance + NBFC rating upgrades (Shriram AAA) are compressing funding costs even as the 10Y drifts up — a favourable window for liability-side action that will not stay open forever.
+
+---
+
+## 🔮 Week Ahead Preview (24–30 August)
+
+1. **28 August — revolving credit draft feedback deadline.** The FIDC submission and top-NBFC representation will land this week; any RBI clarification/soothing (post-Murmu) could re-rate flexi-exposed names (Bajaj Finance especially). Also: whether supply-chain finance/LAP carve-outs get explicit recognition.
+2. **Q1 FY27 GDP data (due ~31 August)** — first 6.7% FY27 forecast test; check private consumption and rural demand prints for MFI/vehicle/gold-loan read-through.
+3. **Moon/MDR UPI framework:** expect NPCI progress on UPI merchant discount rate; any threshold disclosure moves small-ticket lending economics.
+4. **Earnings tail-ends & guidance:** follow-up commentary from LICHF (8–10% guidance), Muthoot Finance NIM trajectory, Shriram's ₹300–500mn offshore raise, ABCL gold-branch rollout milestones; Indian Bank's remaining $600mn of offshore raises under the (now closed) special window.
+5. **Rates watch:** crude/US-Iran headlines, Fed September pricing (market currently expects a hold), 10Y G-Sec 6.80–6.95% range, and gold around ₹1.6 lakh/10 gm — the single biggest sentiment lever for the gold-financier complex.
+
+---
+
+## 📊 Sector Scorecard
+
+- **Credit Growth Momentum:** ⭐⭐⭐⭐ (bank credit picked up; NBFC guidance 15–25%; fintech +21%; moderation expected FY27 but from a high base)
+- **Asset Quality Trend:** ⭐⭐⭐⭐ (gold 0.2% stress; MFI PAR halved+; no El Niño/West Asia stress yet; WB pockets + IRAC penalties are the blemishes)
+- **Regulatory Environment:** ⭐⭐⭐ (intense but consultative: revolving-credit + rate directions + PCA/CFSS; uncertainty peaks before the 28 Aug deadline)
+- **Market Sentiment:** ⭐⭐⭐⭐ (JPM/Nomura/Jefferies/Motilal constructive; gold re-rating underway; Nifty's 2nd weekly loss is macro-driven, not NBFC-driven)
+- **Funding Availability:** ⭐⭐⭐⭐ (FCNR flood, cheaper CoFs, rate-reset innovations; window closing, 10Y drifting up)
+- **Digital Adoption:** ⭐⭐⭐⭐ (fintech books +21%, UPI credit scaling, NBFC licence pivots; MDR/APR rules to shape economics)
+
+---
+
+## 💡 Analyst's Take
+
+**The week's real story is the collision between a structural gold-loan re-rating and a margin squeeze that nobody is pricing fully.** JPMorgan's initiation was a landmark — the market now has a coherent thesis (structural substitution, 300–600bps rate arbitrage vs unsecured, 0.2% bad loans, $5,000/oz gold by end-2027) for why gold loans deserve a *growth* multiple. But the same week, 360 ONE's data showed Muthoot Finance's NIM down ~300bps, and the competitive responses are accelerating on every front: banks are copying the NBFC playbook (Indian Bank's 725 "Gold Shoppe" branches, 15-minute approvals, 3,538 appraisers; PSB gold books +105% YoY), while ABCL, L&T, Godrej and Poonawalla pile in. Incumbents' moat (distribution, appraisal, trust, LTV discipline) is real — JPMorgan's barriers-to-entry argument is right — but the *spread* on new business is being competed away, exactly as we saw in unsecured lending a year ago. **For an FP&A lens: model gold-book NIM under three yield scenarios, track LTV-to-new-business by competitor, and treat the ₹1.6 lakh gold price as a temporary tailwind to collateral comfort, not a substitute for pricing power.**
+
+**Second: the revolving-credit episode is a strategic fork for every NBFC product head.** Murmu's clarification suggests the RBI wants *structure* (term, amortising, non-replenishing) rather than prohibition — but the direction of travel is unmistakable: NBFCs are being pushed toward bank-style term lending, which rewrites Flexi/OD/UPI-credit economics and fee income at the very moment banks are allowed to keep offering the same working-capital products. The ₹2 lakh crore at stake and the 15–20% growth of that segment mean product architecture — not credit risk — will decide who wins FY27 growth. Muthoot Fincorp is structurally well-placed (gold and vehicle products are term loans), and the silver lining is that ML/UL competitors must absorb redesign costs; but the group's Muthoot MCred penalty is a reminder that with PCA now live, *classification* hygiene is a balance-sheet, not compliance-department, matter.
+
+**Finally, the funding window is the quiet gift of the quarter.** FCNR(B)-fuelled liquidity, sub-7.5% bank funding costs, AAA upgrades, and now rate-reset clauses in offshore syndications have made liability costs the *only* input moving in lenders' favour this year. Shriram's 60–80bps offshore saving and ~100bps liability-cost trajectory is the playbook: lock in duration now (deposits at ~42-month tenor), negotiate rate-reset/upgrade clauses in every facility, and front-load borrowing before the early-closed FCNR window starts to unwind system liquidity. The contrarian read: markets may be underpricing how long the *Yields* squeeze lasts (gold + affordable housing) and overpricing the durability of cheap funding — the correct hedges are structural (product mix toward secured term lending, cost-of-funds duration) rather than beta.
+
+---
+
+## 🔗 Key Sources
+
+- JPMorgan gold-lender initiation: [CNBC-TV18](https://www.cnbctv18.com/market/manappuram-muthoot-iifl-finance-share-price-which-gold-financier-to-buy-jpmorgan-advises-target-upside-19974130.htm) · [NDTV Profit](https://www.ndtvprofit.com/personal-finance/gold-loans-are-booming-in-india-jpmorgan-explains-why-11943193) · [ET Now](https://www.etnownews.com/personal-finance/why-indias-gold-loan-boom-isnt-slowing-down-market-set-for-structural-boom-says-jp-morgan-article-155971374)
+- Revolving credit: [ET — NBFCs seek rethink](https://economictimes.indiatimes.com/industry/banking/finance/nbfcs-seek-rbi-rethink-on-revolving-credit-curb/articleshow/133281668.cms) · [BS — FIDC](https://www.business-standard.com/finance/news/fidc-to-flag-nbfc-concerns-over-rbi-s-proposed-revolving-credit-ban-126081701161_1.html) · [CNBC-TV18 — Murmu](https://www.cnbctv18.com/economy/nbfc-revolving-credit-rules-upi-mdr-rbi-murmu-19973017.htm) · [CNBC-TV18 — Piramal/Sridharan](https://www.cnbctv18.com/business/finance/rbi-draft-revolving-credit-upi-credit-flexi-loans-loan-against-shares-piramal-finance-19973479.htm) · [NDTV Profit — RBI meets NBFC heads](https://www.ndtvprofit.com/business/rbi-officials-meet-nbfc-heads-focus-on-draft-guidelines-for-revolving-credit-compliance-11920118) · [BS — draft impact Aug 8](https://www.business-standard.com/finance/news/rbi-s-draft-revolving-credit-curbs-drag-nbfc-stocks-bajaj-finance-down-6-126080701605_1.html)
+- Interest-rate draft: [Kotak via BL](https://www.thehindubusinessline.com/money-and-banking/rbi-rate-framework-may-limit-hfc-pricing-flexibility-speed-up-bank-rate-transmission-to-nbfcs-kotak/article71344634.ece) · [Mint explainer](https://www.livemint.com/industry/rbi-fintech-loan-rules-nbfc-credit-lines-interest-rates-11787196813448.html) · [CAalley newsletter](https://caalley.com/more/newsletter-archives/weekly-newsletter-august-13-2026)
+- Q1 FY27 earnings digest: [ET — 360 ONE](https://economictimes.indiatimes.com/industry/banking/finance/nbfc-growth-outlook-remains-resilient-margin-pressures-asset-quality-key-monitorables-report/articleshow/133416479.cms) · [ETBFSI](https://bfsi.economictimes.indiatimes.com/articles/nbfc-growth-outlook-remains-resilient-margin-pressures-asset-quality-key-monitorables-report/133419289) · [Times Now](https://www.timesnownews.com/business-economy/industry/nbfc-growth-outlook-stays-strong-but-margin-pressure-emerges-as-key-risk-article-155952208)
+- Brokerage calls: [Jefferies — FE](https://www.financialexpress.com/market/bajaj-finance-to-shriram-finance-jefferies-4-nbfc-picks-with-up-to-20-upside-4320897/lite/) · [Jefferies — Bajaj Housing (ET)](https://economictimes.indiatimes.com/markets/stocks/news/why-jefferies-sees-limited-upside-in-bajaj-housing-finance-despite-its-fast-growing-loan-book/articleshow/133364160.cms) · [Nomura — BS](https://www.business-standard.com/markets/news/bajaj-finance-why-nomura-is-bullish-despite-competition-regulatory-risks-126082100537_1.html) · [SBI Securities — Business Today](https://www.businesstoday.in/markets/stocks/story/nbfc-stocks-remain-buy-on-dips-bets-as-fy27-credit-growth-stays-strong-sunny-agarwal-549582-2026-08-17) · [Motilal Oswal — CNBC-TV18](https://www.cnbctv18.com/market/motilal-oswal-bets-on-nbfcs-it-recovery-and-two-earnings-baskets-as-market-mood-turns-positive-19970867.htm)
+- Gold sector: [ET — gold crosses ₹1.6L](https://economictimes.indiatimes.com/industry/banking/finance/banking/gold-loan-portfolio-to-surpass-rs-1-5-lakh-crore-by-fy27-end-indian-bank-md/articleshow/133436694.cms) · [ET — big groups](https://economictimes.indiatimes.com/industry/banking/finance/banking/gold-prices-and-indian-gold-loan-industry-boom-tata-godrej-and-now-birla-big-groups-arent-just-chasing-glitter/articleshow/133399420.cms) · [ToI — ABCL](https://timesofindia.indiatimes.com/business/india-business/aditya-birla-capital-enters-gold-loans-to-have-1000-dedicated-branches-in-three-years/articleshow/133384395.cms) · [ET — L&T Finance](https://economictimes.indiatimes.com/industry/banking/finance/lt-finance-plans-500-new-gold-loan-branches-this-fiscal/articleshow/133319502.cms) · [ETBFSI — Godrej-Indel](https://bfsi.economictimes.indiatimes.com/articles/godrej-capital-to-co-lend-gold-loans-with-indel-money-initial-book-size-likely-to-be-rs-200-cr/133279945) · [ToI — banks' gold muscle](https://timesofindia.indiatimes.com/business/india-business/as-demand-shoots-up-banks-strengthen-gold-loan-muscle/articleshow/133077295.cms) · [Rediff — bullet loans](https://www.rediff.com/getahead/report/bullet-gold-loans-lose-edge-under-new-rbi-rules/20260818.htm)
+- Shriram Finance: [ET — CEO interview](https://economictimes.indiatimes.com/industry/banking/finance/no-need-for-fresh-capital-for-five-years-shriram-finance-ceo-parag-sharma/articleshow/133281654.cms) · [ET — rate reset clause](https://economictimes.indiatimes.com/industry/banking/finance/rate-reset-clause-in-overseas-loan-pact-helps-shriram-finance-cut-costs/articleshow/133385470.cms) · [BS — MUFG closing](https://www.business-standard.com/companies/news/mufg-bank-acquires-20-percent-stake-shriram-finance-deal-126040801287_1.html)
+- Microfinance: [CRIF High Mark MicroLend (Aug 2026 PDF)](https://www.crifhighmark.com/media/7364/microlend-quarterly-report-august-2026.pdf) · [ET — PAR falls](https://economictimes.indiatimes.com/industry/banking/finance/microfinance-asset-quality-improves-further-as-loans-at-risk-fall-to-2-3-in-june-crif/articleshow/133147876.cms) · [UNI](http://www.uniindia.com/news/business-economy/finance-microfinance-loan-steady/3939556.html)
+- Digital/fintech: [CNBC-TV18 — Finsight](https://www.cnbctv18.com/personal-finance/nbfc-fintech-loan-book-up-21-pc-yoy-as-of-june-higher-ticket-lending-gains-ground-report-19968721.htm) · [BS — MobiKwik](https://www.business-standard.com/companies/news/mobikwik-transfers-digital-lending-business-to-its-nbfc-subsidiary-mdspl-126081801301_1.html) · [Mint — Navi](https://www.livemint.com/companies/news/navi-finserv-loan-growth-upi-platform-merchant-finance-lap-11787154859866.html) · [BS — Kiwi](https://www.business-standard.com/finance/news/kiwi-broadens-upi-credit-play-with-yes-bank-partnership-postpaid-launch-126081301957_1.html) · [BL — UPI credit access](https://www.thehindubusinessline.com/news/upi-expands-credit-access-beyond-metros-as-first-time-users-adopt-credit-lines/article71333210.ece)
+- HFCs: [BL — PNB Housing](https://www.thehindubusinessline.com/money-and-banking/pnb-housing-finance-eyes-higher-yielding-segments-such-as-micro-housing-finance/article71361423.ece) · [Mint — PNB Housing margins](https://www.livemint.com/companies/news/pnb-housing-bets-on-micro-loans-small-developers-to-boost-margins-11786027236998.html) · [BL — Aadhar](https://www.thehindubusinessline.com/companies/aadhar-housing-finance-working-on-two-way-co-lending-arrangements/article71329206.ece) · [CNBC-TV18 — Home First](https://www.cnbctv18.com/market/stocks/home-first-finance-company-share-price-to-consider-rs-150-crore-ncd-issue-on-august-21-19972035.htm) · [ToI — LICHF](https://timesofindia.indiatimes.com/business/india-business/consider-capping-rates-on-affordable-loans-lichf-chief/articleshow/132843224.cms)
+- Market data: [BL — Aug 21 close](https://www.thehindubusinessline.com/markets/sensex-nifty50-today-stock-market-highlights-21st-august-2026/article71368928.ece) · [Anand Rathi index tables](https://anandrathi.com/indices/nifty-financial-services) · [CNBC-TV18 — FII/DII](https://www.cnbctv18.com/market/fiis-sell-rs543-crore-of-indian-stocks-on-friday-diis-buy-over-rs2100-crore-19974703.htm) · [TradingEconomics 10Y](https://tradingeconomics.com/india/government-bond-yield) · [RBI MPC (5 Aug)](https://www.cnbctv18.com/economy/rbi-mpc-meeting-august-2026-outcome-repo-rate-msf-sdf-gdp-inflation-forecast-governor-sanjay-malhotra-19962035.htm)
+- Macro/other: [BS — credit footprint](https://www.business-standard.com/finance/news/india-s-credit-footprint-expands-as-new-states-emerge-as-growth-centres-126082100978_1.html) · [CNBC-TV18 — credit growth](https://www.cnbctv18.com/business/finance/bank-credit-growth-picks-up-nbfcs-gold-loan-segments-lead-the-charge-19970992.htm) · [ET — Sammaan/EOW](https://economictimes.indiatimes.com/news/india/sc-gets-eow-report-finding-no-direct-link-between-ihfl-loans-gehlaut-linked-entities-in-key-cases/articleshow/133425306.cms) · [BCG FY26 NBFC Roundup](https://web-assets.bcg.com/3f/a2/9e44b8084498a89d3105c7c5d76a/nbfc-sector-roundup-fy26.pdf) · [Finnovate weekly capsule](https://www.finnovate.in/learn/blog/finnovate-weekly-capsule-august-17-august-21-2026) · [Private credit — HBL](https://www.thehindubusinessline.com/news/indias-private-credit-market-to-stay-buoyant-over-next-2-years-real-estate-leads-deal-activity-in-h1-2026-report/article71372449.ece)
+
+*Compiled by Jarvis for the NBFC Briefing library. Market prices as of Friday, 21 August 2026 close; regulatory items referenced as of Sunday, 23 August 2026. Institutional research summaries are third-party views, not investment advice.*

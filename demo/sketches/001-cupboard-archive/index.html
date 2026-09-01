@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Cupboard — NBFC Briefing demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --paper: #f3efe6;
+      --ink: #241f1a;
+      --mute: #6b6358;
+      --line: #d4cdc0;
+      --olive: #3f4d34;
+      --olive-soft: #e4e6d8;
+      --miss: #8a3b2a;
+      --miss-soft: #f3e2dc;
+      --shelf: #ebe4d6;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+    }
+    .app {
+      min-height: 100%;
+      display: grid;
+      grid-template-rows: auto auto 1fr;
+    }
+    .ribbon {
+      padding: 10px 28px;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      color: var(--mute);
+      border-bottom: 1px solid var(--line);
+    }
+    .ribbon strong { color: var(--ink); font-weight: 500; }
+    header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: end;
+      padding: 28px 28px 20px;
+      border-bottom: 1px solid var(--line);
+    }
+    .kicker {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--olive);
+      margin-bottom: 8px;
+    }
+    h1 {
+      font-family: "Source Serif 4", Georgia, serif;
+      font-size: 34px;
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+    }
+    .how {
+      max-width: 340px;
+      font-size: 13.5px;
+      line-height: 1.55;
+      color: var(--mute);
+      text-align: right;
+    }
+    .how ol {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .how b { color: var(--ink); font-weight: 500; }
+    main {
+      display: grid;
+      grid-template-columns: 220px 280px 1fr;
+      min-height: 0;
+    }
+    aside, .docs, article {
+      min-height: 0;
+      overflow: auto;
+    }
+    aside {
+      border-right: 1px solid var(--line);
+      padding: 20px 0 40px;
+      background: var(--shelf);
+    }
+    .month {
+      padding: 0 20px 12px;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--mute);
+    }
+    .day {
+      width: 100%;
+      text-align: left;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      font: inherit;
+      padding: 10px 20px;
+      cursor: pointer;
+      display: grid;
+      grid-template-columns: 36px 1fr auto;
+      gap: 10px;
+      align-items: baseline;
+    }
+    .day:hover { background: rgba(63, 77, 52, 0.06); }
+    .day[aria-current="true"] { background: var(--paper); }
+    .dow { font-size: 11px; color: var(--mute); }
+    .dnum { font-family: "Source Serif 4", Georgia, serif; font-size: 18px; }
+    .marks { font-size: 11px; color: var(--mute); }
+    .marks .ok { color: var(--olive); }
+    .marks .no { color: var(--miss); }
+    .docs {
+      border-right: 1px solid var(--line);
+      padding: 20px 18px 40px;
+    }
+    .docs h2 {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--mute);
+      margin-bottom: 14px;
+    }
+    .doc {
+      width: 100%;
+      text-align: left;
+      border: 1px solid var(--line);
+      background: #faf7f0;
+      color: inherit;
+      font: inherit;
+      padding: 14px 14px 12px;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+    .doc:hover { border-color: #b7b09f; }
+    .doc[aria-current="true"] {
+      border-color: var(--ink);
+      background: #fffdf8;
+    }
+    .doc.missing {
+      opacity: 0.85;
+      background: var(--miss-soft);
+      border-color: #e0c4bb;
+      cursor: default;
+    }
+    .kind {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--olive);
+      margin-bottom: 6px;
+    }
+    .doc.missing .kind { color: var(--miss); }
+    .doc h3 {
+      font-family: "Source Serif 4", Georgia, serif;
+      font-size: 17px;
+      font-weight: 500;
+      line-height: 1.25;
+      margin-bottom: 6px;
+    }
+    .doc p { font-size: 12.5px; color: var(--mute); line-height: 1.45; }
+    article { padding: 28px 40px 80px; }
+    .empty {
+      color: var(--mute);
+      max-width: 36em;
+      padding-top: 40px;
+    }
+    .empty h2 {
+      font-family: "Source Serif 4", Georgia, serif;
+      font-size: 28px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 10px;
+    }
+    .meta {
+      font-size: 12px;
+      color: var(--mute);
+      letter-spacing: 0.04em;
+      margin-bottom: 22px;
+    }
+    article h1 {
+      font-size: 36px;
+      max-width: 18ch;
+      margin-bottom: 14px;
+    }
+    .lede {
+      font-family: "Source Serif 4", Georgia, serif;
+      font-size: 20px;
+      line-height: 1.4;
+      max-width: 36em;
+      margin-bottom: 28px;
+    }
+    .body {
+      font-family: "Source Serif 4", Georgia, serif;
+      font-size: 17px;
+      line-height: 1.55;
+      max-width: 38em;
+    }
+    .body h2 {
+      font-family: "IBM Plex Sans", sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--olive);
+      margin: 28px 0 10px;
+    }
+    .body p { margin-bottom: 12px; }
+    .body ul { padding-left: 1.1em; margin-bottom: 12px; }
+    .body li { margin-bottom: 6px; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin: 12px 0 18px;
+    }
+    th, td {
+      text-align: left;
+      padding: 7px 8px 7px 0;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+    th { font-weight: 500; color: var(--mute); font-size: 12px; }
+    .note {
+      background: var(--olive-soft);
+      padding: 14px 16px;
+      margin: 16px 0;
+    }
+    .warn {
+      background: var(--miss-soft);
+      padding: 14px 16px;
+      margin: 16px 0;
+    }
+    .back {
+      display: none;
+      margin-bottom: 16px;
+      border: 0;
+      background: none;
+      font: inherit;
+      color: var(--olive);
+      cursor: pointer;
+    }
+    @media (max-width: 980px) {
+      main { grid-template-columns: 1fr; }
+      aside, .docs { border-right: 0; border-bottom: 1px solid var(--line); }
+      header { grid-template-columns: 1fr; }
+      .how { text-align: left; }
+      .back { display: inline-block; }
+      .pane-hidden { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="ribbon">Demo only — sampled from your real runs. Jobs are not filing here yet.</div>
+    <header>
+      <div>
+        <div class="kicker">NBFC Briefing · the cupboard</div>
+        <h1>Open a day.<br>Read what landed.</h1>
+      </div>
+      <div class="how">
+        <ol>
+          <li>1. <b>Jobs finish</b> at 7:00 and 8:15.</li>
+          <li>2. Each one <b>drops a file</b> into that day’s folder.</li>
+          <li>3. You open the day. No upload.</li>
+        </ol>
+      </div>
+    </header>
+    <main>
+      <aside id="dates"></aside>
+      <section class="docs" id="docs"></section>
+      <article id="reader"></article>
+    </main>
+  </div>
+  <script>
+    const DAYS = [
+      {
+        id: "2026-08-22",
+        dow: "Sat",
+        n: "22",
+        label: "22 August",
+        files: [
+          { id: "watch-22", kind: "Daily Watch", title: "Did not file", missing: true, blurb: "The 7:00 AM run failed. The cupboard shows the hole instead of pretending." },
+          { id: "reg-22", kind: "Regulation", title: "Five master directions, and a first PCA", blurb: "RBI’s July 31 package, the UL list, and a group-company IRAC penalty." }
+        ]
+      },
+      {
+        id: "2026-08-21",
+        dow: "Fri",
+        n: "21",
+        label: "21 August",
+        files: [
+          { id: "watch-21", kind: "Daily Watch", title: "Did not file", missing: true, blurb: "No clean Daily Watch on disk for Friday." },
+          { id: "reg-21", kind: "Regulation", title: "Comment by 28 August", blurb: "Draft ban on revolving credit. Gold-loan core is mostly term loans — still worth a product check." }
+        ]
+      },
+      {
+        id: "2026-08-19",
+        dow: "Tue",
+        n: "19",
+        label: "19 August",
+        files: [
+          { id: "watch-19", kind: "Daily Watch", title: "Gold loans, a sell-off, and Fitch", blurb: "Sector deep-dive: gold jewellery loans +69.3%. Muthoot Finance Q1 PAT +43%." },
+          { id: "reg-19", kind: "Regulation", title: "Upper Layer list, still settling", blurb: "17 names. Muthoot Finance is on it. Muthoot Fincorp is not the same company." }
+        ]
+      }
+    ];
+
+    const COPY = {
+      "reg-22": {
+        kicker: "Regulation · Saturday 22 August 2026 · nbfc-lerner",
+        title: "RBI puts NBFCs on a traffic light",
+        lede: "Five master directions on 31 July. A Prompt Corrective Action framework for NBFCs — the first. Eight penalties in three weeks, including ₹3.10 lakh on Muthoot MCred for upgrading NPAs without full arrears.",
+        html: `
+          <h2>What landed</h2>
+          <p>RBI folded years of scattered circulars into five Master Directions, effective immediately: miscellaneous supervision (this is where PCA lives), cybersecurity, statutory audit, the compliance function, and supervisory returns.</p>
+          <p>In plain English: same rules, one filing cabinet. The new piece is PCA. If CRAR, Tier 1, or NNPA slip past set lines, RBI can restrict dividends, force capital, and — if it chooses — publish the fact.</p>
+          <div class="note"><b>For Muthoot Fincorp.</b> UL, many branches: CFSS is mandatory, with quarterly progress to RBI. Fair-practices interest charging (from disbursement, not sanction) will be watched. PCA thresholds: CRAR above 15%, Tier 1 above 10%, NNPA below 6%.</div>
+          <h2>The MCred note</h2>
+          <div class="warn">Muthoot MCred (Pappachan group, formerly Muthoottu Mini) was fined for moving NPA accounts to Standard without the borrower clearing all arrears across facilities. RBI is auditing IRAC in the group. No upgrades without full arrears.</div>
+          <h2>PCA lines (non-CIC)</h2>
+          <table>
+            <thead><tr><th>Indicator</th><th>Caution</th><th>Warning</th><th>Critical</th></tr></thead>
+            <tbody>
+              <tr><td>CRAR</td><td>&lt;15% ≥12%</td><td>&lt;12% ≥9%</td><td>&lt;9%</td></tr>
+              <tr><td>Tier 1</td><td>&lt;10% ≥8%</td><td>&lt;8% ≥6%</td><td>&lt;6%</td></tr>
+              <tr><td>NNPA</td><td>&gt;6% ≤9%</td><td>&gt;9% ≤12%</td><td>&gt;12%</td></tr>
+            </tbody>
+          </table>
+          <p>Exit takes four clean quarters, one of them the annual audit, plus RBI’s comfort that profits will hold.</p>
+          <h2>Upper Layer, 2026–27</h2>
+          <p>Seventeen names on the published list; two more stay under the five-year lock-in. Muthoot Finance Limited is on it. That is not Muthoot Fincorp. The classification does not travel automatically — the expectations around the name still will.</p>
+        `
+      },
+      "reg-21": {
+        kicker: "Regulation · Friday 21 August 2026 · nbfc-lerner",
+        title: "A week to comment on revolving credit",
+        lede: "RBI’s draft would let NBFCs offer term loans only. Credit lines, BNPL, flexi facilities that refill without a fresh appraisal would go. Comments close 28 August.",
+        html: `
+          <p>Gold-loan books are mostly term or bullet already, so the core of MFL is not the target. Anything that looks like a working-capital line, a top-up that skips fresh appraisal, or a fintech credit-line partnership needs a look before the deadline.</p>
+          <div class="note">A second draft (12 August) would put every regulated lender on one interest-rate rulebook — benchmark plus risk spread, spread frozen three years on floating loans. Comments to 11 September; proposed from 1 April 2027.</div>
+        `
+      },
+      "watch-19": {
+        kicker: "Daily Watch · Tuesday 19 August 2026 · jarvis · gold-loan Tuesday",
+        title: "The gold book is still the story",
+        lede: "NBFC gold-jewellery loans were up 69.3% to ₹3.42 lakh crore in June — the fastest book in the system. Muthoot Finance Q1 PAT +43%. The market, meanwhile, was on a six-session slide.",
+        html: `
+          <h2>Urgent that morning</h2>
+          <ul>
+            <li>NBFCs asking RBI to rethink a revolving-credit curb. Only card-issuing NBFCs would be exempt.</li>
+            <li>Sensex −320 to 77,408; Nifty under 24,200. Brent through $91 after the US–Iran ceasefire lapsed.</li>
+            <li>Fitch affirmed Muthoot Finance at BB+, stable — the listed gold-loan cousin, not Fincorp.</li>
+          </ul>
+          <h2>The Tuesday deep-dive</h2>
+          <p>Organised gold lending is eating the unsecured retreat. Gold overtook vehicles as the largest securitised asset class in Q1 FY27. NBFCs were 98%+ of that paper. Banks are coming back in at higher tickets, which is where yields compress.</p>
+          <div class="note"><b>For Muthoot Fincorp.</b> Regulatory wind at the back. Securitisation is a real ALM tap. Competition and a quieter gold price are the two things Jefferies already used to cut Muthoot Finance FY27 profits — watch the same two here.</div>
+          <h2>Also in the file</h2>
+          <p>Manappuram Q1 PAT ₹585 crore (+341%). Chola raising ₹55,000 crore of NCDs. Microfinance: borrowers with 4+ lenders down to 1.35 million — 2% of 66 million. The guardrails are working; those 1.35 million still carry the risk.</p>
+        `
+      },
+      "reg-19": {
+        kicker: "Regulation · week of 19 August 2026",
+        title: "Seventeen names, one threshold",
+        lede: "Upper Layer is now mostly a number: assets of ₹1 lakh crore. Government NBFCs lose their old concentration exemptions. The list is the enhanced-rule ticket.",
+        html: `
+          <p>Tata Sons and Tata Capital stayed. Four PSU infrastructure names are on because they crossed the size line. PNB Housing and Sammaan remain under the five-year lock-in even after falling short.</p>
+          <div class="note">Muthoot Finance is on the 2026–27 list. Muthoot Fincorp is a different listed company, Pappachan group. Do not merge the two — in conversation or in a board note.</div>
+        `
+      }
+    };
+
+    let currentDay = DAYS[0].id;
+    let currentFile = "reg-22";
+
+    function render() {
+      const day = DAYS.find(d => d.id === currentDay);
+      document.getElementById("dates").innerHTML =
+        `<div class="month">August 2026</div>` +
+        DAYS.map(d => `
+          <button class="day" data-day="${d.id}" aria-current="${d.id === currentDay}">
+            <span class="dow">${d.dow}</span>
+            <span class="dnum">${d.n}</span>
+            <span class="marks">${d.files.map(f => f.missing ? `<span class="no">○</span>` : `<span class="ok">●</span>`).join(" ")}</span>
+          </button>`).join("");
+
+      document.getElementById("docs").innerHTML =
+        `<h2>${day.label}</h2>` +
+        day.files.map(f => `
+          <button class="doc ${f.missing ? "missing" : ""}" data-file="${f.id}" aria-current="${f.id === currentFile}" ${f.missing ? "disabled" : ""}>
+            <div class="kind">${f.kind}${f.missing ? " · missing" : ""}</div>
+            <h3>${f.title}</h3>
+            <p>${f.blurb}</p>
+          </button>`).join("");
+
+      const piece = COPY[currentFile];
+      const reader = document.getElementById("reader");
+      if (!piece) {
+        reader.innerHTML = `<div class="empty"><h2>Nothing to open.</h2><p>That is the point of a cupboard. A failed job leaves an empty shelf, not a fake report.</p></div>`;
+      } else {
+        reader.innerHTML = `
+          <button class="back" type="button">← Days</button>
+          <div class="meta">${piece.kicker}</div>
+          <h1>${piece.title}</h1>
+          <p class="lede">${piece.lede}</p>
+          <div class="body">${piece.html}</div>`;
+      }
+    }
+
+    document.body.addEventListener("click", (e) => {
+      const dayBtn = e.target.closest("[data-day]");
+      if (dayBtn) {
+        currentDay = dayBtn.dataset.day;
+        const first = DAYS.find(d => d.id === currentDay).files.find(f => !f.missing);
+        currentFile = first ? first.id : null;
+        render();
+        return;
+      }
+      const fileBtn = e.target.closest("[data-file]:not([disabled])");
+      if (fileBtn) {
+        currentFile = fileBtn.dataset.file;
+        render();
+      }
+    });
+
+    render();
+  </script>
+</body>
+</html>

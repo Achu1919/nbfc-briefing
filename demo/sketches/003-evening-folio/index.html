@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Evening Folio — 22 August 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --night: #141210;
+      --panel: #1c1916;
+      --ink: #ebe3d4;
+      --dim: #9a907f;
+      --gold: #b08d57;
+      --line: #2c2823;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--night);
+      color: var(--ink);
+      font-family: Outfit, system-ui, sans-serif;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+    }
+    .page {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 36px 28px 96px;
+    }
+    .demo {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 36px;
+    }
+    header {
+      border-top: 1px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      padding: 22px 0 18px;
+      margin-bottom: 28px;
+    }
+    .vol {
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+    h1.book {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(42px, 8vw, 64px);
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      line-height: 0.92;
+    }
+    .sub {
+      margin-top: 10px;
+      color: var(--dim);
+      font-size: 14px;
+    }
+    nav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+    nav button {
+      background: transparent;
+      color: var(--dim);
+      border: 1px solid var(--line);
+      padding: 8px 14px;
+      font: inherit;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+    }
+    nav button[aria-current="true"] {
+      color: var(--night);
+      background: var(--ink);
+      border-color: var(--ink);
+    }
+    .chapter { display: none; }
+    .chapter.on { display: block; }
+    .ch-label {
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    h2 {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(32px, 5vw, 44px);
+      font-weight: 500;
+      line-height: 1.05;
+      margin-bottom: 16px;
+    }
+    .drop {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 22px;
+      line-height: 1.35;
+      margin-bottom: 22px;
+    }
+    .prose p { font-size: 16.5px; line-height: 1.65; margin-bottom: 14px; color: #ddd4c4; }
+    .prose h3 {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 26px;
+      font-weight: 500;
+      margin: 28px 0 8px;
+      color: var(--ink);
+    }
+    blockquote {
+      border-left: 1px solid var(--gold);
+      padding: 4px 0 4px 18px;
+      margin: 20px 0;
+      color: var(--ink);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 22px;
+      line-height: 1.3;
+    }
+    .toc a, .toc button {
+      display: block;
+      width: 100%;
+      text-align: left;
+      background: none;
+      border: 0;
+      border-bottom: 1px solid var(--line);
+      color: var(--ink);
+      font: inherit;
+      padding: 14px 0;
+      cursor: pointer;
+    }
+    .toc .n { color: var(--gold); font-size: 13px; letter-spacing: 0.12em; }
+    .toc h3 {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 26px;
+      font-weight: 500;
+      margin: 4px 0;
+    }
+    .toc p { color: var(--dim); font-size: 14px; }
+    .missing { color: var(--dim); font-style: italic; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin: 10px 0 18px;
+    }
+    th, td {
+      text-align: left;
+      padding: 8px 8px 8px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    th { color: var(--dim); font-weight: 400; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <p class="demo">Demo · evening reading · not live</p>
+    <header>
+      <div class="vol">Evening folio · 22 August 2026</div>
+      <h1 class="book">Two desks.<br>One binding.</h1>
+      <p class="sub">A quieter way to hold the same two reports.</p>
+    </header>
+    <nav>
+      <button data-ch="toc" aria-current="true">Contents</button>
+      <button data-ch="i">I · Rules</button>
+      <button data-ch="ii">II · Markets</button>
+      <button data-ch="note">A note on the shelf</button>
+    </nav>
+
+    <section id="toc" class="chapter on">
+      <div class="toc">
+        <button data-ch="i">
+          <div class="n">Chapter I</div>
+          <h3>The traffic light</h3>
+          <p>Saturday’s regulation file. PCA, five directions, a fine next door.</p>
+        </button>
+        <button data-ch="ii">
+          <div class="n">Chapter II</div>
+          <h3>Tuesday’s gold</h3>
+          <p>The last clean Daily Watch on disk. 19 August.</p>
+        </button>
+        <div class="toc" style="padding:14px 0;border-bottom:1px solid var(--line)">
+          <div class="n">Saturday Watch</div>
+          <h3 class="missing">Not bound.</h3>
+          <p>The 22 August news job failed. The folio leaves the chapter out rather than invent one.</p>
+        </div>
+        <button data-ch="note">
+          <div class="n">Endpaper</div>
+          <h3>How a day gets bound</h3>
+          <p>Jobs write. The folder keeps. You open.</p>
+        </button>
+      </div>
+    </section>
+
+    <section id="i" class="chapter">
+      <div class="ch-label">Chapter I · Regulation · 22 August</div>
+      <h2>RBI has a new way to say stop.</h2>
+      <p class="drop">For years PCA belonged to banks. On 31 July it arrived for the large NBFCs, tucked into the first of five Master Directions that otherwise mostly tidy the cupboard.</p>
+      <div class="prose">
+        <p>Think of a traffic light. Green is ordinary life. Amber is caution: dividends stop, promoters are asked for equity. Red starts cutting capex and variable cost. The supervisor may print the name.</p>
+        <p>The lines for a non-CIC: stay above 15% CRAR, 10% Tier 1, and keep NNPA under 6%. Four clean quarters to leave, one of them the annual audit.</p>
+        <blockquote>Muthoot MCred was fined ₹3.10 lakh for calling an NPA standard before the arrears were gone. The group is being read.</blockquote>
+        <h3>Fincorp, specifically</h3>
+        <p>CFSS, because you are Upper Layer with a real branch net. Interest from the day money leaves, not the day a file is sanctioned. Internal ambers at least 200 basis points inside the official lines. A PCA page in the quarterly board pack.</p>
+        <h3>The list</h3>
+        <p>Seventeen names for 2026–27. Muthoot Finance is on it. That is not this company. Do not let a sentence in a note pretend otherwise.</p>
+      </div>
+    </section>
+
+    <section id="ii" class="chapter">
+      <div class="ch-label">Chapter II · Daily Watch · 19 August · gold Tuesday</div>
+      <h2>Sixty-nine percent, and a market that would not look up.</h2>
+      <p class="drop">Gold-jewellery loans at the NBFCs ran to ₹3.42 lakh crore in June. Fastest book in the system. Sensex, that Monday, still fell three hundred points.</p>
+      <div class="prose">
+        <p>Muthoot Finance — again, the cousin — printed Q1 PAT of ₹2,825 crore, up 43%. Fitch kept BB+, stable. Jefferies had already cut FY27 profits on a quieter gold price and banks walking back into the trade.</p>
+        <p>Gold overtook vehicles as the largest securitised asset class in the quarter. NBFCs wrote almost all of it. That is an ALM tap if you want it, and a reminder that the bid can move.</p>
+        <h3>Around the sector</h3>
+        <p>Manappuram’s PAT quadrupled. Chola will raise ₹55,000 crore of NCDs. Microfinance: only 2% of borrowers now sit with four or more lenders. The remaining 1.35 million are still the book to watch.</p>
+        <p>The news desk only flagged the revolving-credit draft. The argument lives in Chapter I and in Friday’s regulation file — comments due 28 August.</p>
+      </div>
+    </section>
+
+    <section id="note" class="chapter">
+      <div class="ch-label">Endpaper</div>
+      <h2>Nothing is uploaded.</h2>
+      <div class="prose">
+        <p>In the morning the two agents write, as they already do. Each one also leaves a dated file in one folder. Telegram still knocks. This folio is only the cover you would open at the desk — or, if you liked this darker room, in the evening.</p>
+        <p>A missing chapter is information. Saturday’s Watch is missing. That is why a shelf beats a chat.</p>
+        <table>
+          <thead><tr><th>Desk</th><th>Time</th><th>File</th></tr></thead>
+          <tbody>
+            <tr><td>Daily Watch</td><td>7:00</td><td>01-daily-watch</td></tr>
+            <tr><td>Regulatory Monitor</td><td>8:15</td><td>02-regulation</td></tr>
+            <tr><td>Weekly, Mondays</td><td>7:15</td><td>03-weekly-analysis</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+  <script>
+    const btns = [...document.querySelectorAll("[data-ch]")];
+    const chs = document.querySelectorAll(".chapter");
+    function go(id) {
+      document.querySelectorAll("nav button").forEach((b) => b.setAttribute("aria-current", b.dataset.ch === id ? "true" : "false"));
+      chs.forEach((c) => c.classList.toggle("on", c.id === id));
+      window.scrollTo(0, 0);
+    }
+    btns.forEach((b) => b.addEventListener("click", () => go(b.dataset.ch)));
+  </script>
+</body>
+</html>

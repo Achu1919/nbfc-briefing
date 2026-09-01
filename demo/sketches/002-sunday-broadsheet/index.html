@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Briefing — Saturday 22 August 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --paper: #efe6d4;
+      --sheet: #f6efe0;
+      --ink: #1b1612;
+      --rule: #8f1d1d;
+      --mute: #5c5348;
+      --hair: #c9bda6;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #d9cbb0;
+      color: var(--ink);
+      font-family: "Newsreader", "Times New Roman", serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .sheet {
+      max-width: 980px;
+      margin: 0 auto;
+      background: var(--sheet);
+      min-height: 100vh;
+      padding: 22px 42px 80px;
+      box-shadow: 0 0 0 1px rgba(27, 22, 18, 0.06);
+    }
+    .demo {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      color: var(--mute);
+      margin-bottom: 18px;
+    }
+    .mast {
+      border-top: 3px solid var(--ink);
+      border-bottom: 1px solid var(--ink);
+      padding: 10px 0 12px;
+      text-align: center;
+    }
+    .mast-top {
+      display: flex;
+      justify-content: space-between;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .name {
+      font-family: "Fraunces", Georgia, serif;
+      font-size: clamp(48px, 9vw, 84px);
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      line-height: 0.86;
+      font-optical-sizing: auto;
+    }
+    .mast-bot {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+      font-size: 13px;
+      color: var(--mute);
+    }
+    nav {
+      display: flex;
+      gap: 22px;
+      border-bottom: 1px solid var(--ink);
+      margin-bottom: 22px;
+    }
+    nav button {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: none;
+      border: 0;
+      border-bottom: 2px solid transparent;
+      padding: 10px 0 8px;
+      color: var(--mute);
+      cursor: pointer;
+    }
+    nav button[aria-current="true"] {
+      color: var(--ink);
+      border-bottom-color: var(--rule);
+    }
+    .view { display: none; }
+    .view.on { display: block; }
+    .lead-kicker {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--rule);
+      margin-bottom: 8px;
+    }
+    .headline {
+      font-family: "Fraunces", Georgia, serif;
+      font-size: clamp(34px, 5.4vw, 56px);
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      line-height: 0.98;
+      max-width: 16ch;
+    }
+    .dek {
+      font-size: 22px;
+      line-height: 1.3;
+      margin: 16px 0 22px;
+      max-width: 34em;
+    }
+    .byline {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--mute);
+      margin-bottom: 26px;
+    }
+    .split {
+      display: grid;
+      grid-template-columns: 1.35fr 0.85fr;
+      gap: 36px;
+      border-top: 1px solid var(--hair);
+      padding-top: 22px;
+    }
+    .col p, .rail p { font-size: 17.5px; line-height: 1.48; margin-bottom: 12px; }
+    .col h2, .rail h2 {
+      font-family: "Fraunces", Georgia, serif;
+      font-size: 22px;
+      font-weight: 500;
+      margin: 18px 0 8px;
+    }
+    .rail {
+      border-left: 1px solid var(--hair);
+      padding-left: 28px;
+    }
+    .item {
+      border-bottom: 1px solid var(--hair);
+      padding: 0 0 14px;
+      margin-bottom: 14px;
+    }
+    .item h3 {
+      font-family: "Fraunces", Georgia, serif;
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 1.15;
+      margin-bottom: 6px;
+    }
+    .item p { font-size: 16px; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14.5px;
+      margin: 8px 0 16px;
+    }
+    th, td {
+      text-align: left;
+      padding: 6px 8px 6px 0;
+      border-bottom: 1px solid var(--hair);
+    }
+    th {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--mute);
+    }
+    .flag {
+      border-top: 2px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      padding: 12px 0;
+      margin: 16px 0;
+      font-size: 16.5px;
+    }
+    .hole {
+      background: #ead9c8;
+      padding: 16px 18px;
+      margin-bottom: 22px;
+      font-size: 16.5px;
+    }
+    .folio {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px 36px;
+    }
+    .folio article { break-inside: avoid; }
+    .folio h2 {
+      font-family: "Fraunces", Georgia, serif;
+      font-size: 26px;
+      font-weight: 500;
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+    .folio .k {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--rule);
+      margin-bottom: 6px;
+    }
+    .how-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0;
+      margin-top: 12px;
+      border-top: 1px solid var(--ink);
+    }
+    .how-grid section {
+      padding: 18px 20px 8px 0;
+      border-right: 1px solid var(--hair);
+    }
+    .how-grid section:last-child { border-right: 0; padding-right: 0; padding-left: 20px; }
+    .how-grid section:nth-child(2) { padding-left: 20px; }
+    .num {
+      font-family: "Fraunces", Georgia, serif;
+      font-size: 42px;
+      line-height: 1;
+      color: var(--rule);
+    }
+    .how-grid h2 {
+      font-size: 22px;
+      margin: 6px 0 8px;
+    }
+    @media (max-width: 800px) {
+      .sheet { padding: 16px 18px 60px; }
+      .split, .folio, .how-grid { grid-template-columns: 1fr; }
+      .rail, .how-grid section, .how-grid section:last-child, .how-grid section:nth-child(2) {
+        border: 0;
+        padding: 16px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="sheet">
+    <p class="demo">Demo issue · assembled from your 19 Aug Daily Watch and 22 Aug Regulatory Monitor · not a live feed</p>
+    <header class="mast">
+      <div class="mast-top"><span>Private circulation</span><span>Muthoot Fincorp · FP&amp;A</span></div>
+      <div class="name">The Briefing</div>
+      <div class="mast-bot">
+        <span>Saturday, 22 August 2026</span>
+        <span>Vol. I &nbsp;·&nbsp; No. 4</span>
+        <span>Two desks · one paper</span>
+      </div>
+    </header>
+    <nav>
+      <button data-view="front" aria-current="true">Front</button>
+      <button data-view="markets">Markets</button>
+      <button data-view="rules">Rules</button>
+      <button data-view="how">How this works</button>
+    </nav>
+
+    <div id="front" class="view on">
+      <div class="lead-kicker">Lead · Regulation</div>
+      <h1 class="headline">A traffic light for NBFCs.</h1>
+      <p class="dek">RBI spent 31 July folding years of circulars into five Master Directions. Buried in the first of them is something new: Prompt Corrective Action, the tool it already uses on banks, now pointed at the large NBFCs.</p>
+      <p class="byline">Filed 22 August, 10:41 · NBFC Guru · nbfc-lerner</p>
+      <div class="hole">Today’s Daily Watch did not print. The 7:00 AM job failed. A paper that keeps dates will show you that. A chat window will not.</div>
+      <div class="split">
+        <div class="col">
+          <p>The five directions cover miscellaneous supervision, cybersecurity, statutory audit, the compliance function, and supervisory returns. Same substance, one shelf. The new substance is PCA.</p>
+          <p>If CRAR, Tier 1 or NNPA cross published lines, RBI can stop dividends, demand capital, and — if it wishes — say so in public. Exit takes four clean quarters and the supervisor’s comfort that profits will last.</p>
+          <h2>What it asks of Fincorp</h2>
+          <p>Upper Layer, many branches: CFSS is no longer a project you can postpone. Quarterly progress goes to RBI. Interest must run from disbursement, not sanction. The PCA tripwires to stay above: CRAR 15%, Tier 1 10%, NNPA 6%.</p>
+          <div class="flag">Also this fortnight: Muthoot MCred, Pappachan group, fined ₹3.10 lakh for upgrading NPAs without full arrears. IRAC is being read across the group. Do not upgrade without every rupee of overdue interest and principal, on every facility.</div>
+        </div>
+        <aside class="rail">
+          <div class="item">
+            <div class="lead-kicker">Also in this issue</div>
+            <h3>Gold still pays the bills</h3>
+            <p>From Tuesday’s Watch: NBFC gold-jewellery loans +69.3% to ₹3.42 lakh crore. Muthoot Finance Q1 PAT +43%. Banks are walking back in.</p>
+          </div>
+          <div class="item">
+            <h3>Seventeen names</h3>
+            <p>The 2026–27 Upper Layer list is out. Muthoot Finance is on it. Muthoot Fincorp is not that company.</p>
+          </div>
+          <div class="item">
+            <h3>Comment by Friday</h3>
+            <p>Draft revolving-credit ban. Core gold book is term already. Anything that refills without a fresh appraisal is not.</p>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <div id="markets" class="view">
+      <div class="lead-kicker">Daily Watch · Tuesday 19 August · gold-loan desk</div>
+      <h1 class="headline">The gold book is still the story.</h1>
+      <p class="dek">Organised gold lending is eating the space unsecured credit left behind. The listed cousin printed another loud quarter. The market, that morning, did not care.</p>
+      <p class="byline">Filed 19 August · jarvis · sector rotation: Tuesday gold</p>
+      <div class="folio">
+        <article>
+          <div class="k">Urgent</div>
+          <h2>A six-day slide</h2>
+          <p>Sensex −320 to 77,408. Nifty under 24,200. Brent through $91 after the US–Iran ceasefire lapsed. Financials softer with the rest of the rate-sensitive book.</p>
+        </article>
+        <article>
+          <div class="k">Rating</div>
+          <h2>Fitch keeps BB+</h2>
+          <p>Muthoot Finance, not Fincorp, affirmed at BB+ stable. Leadership in jewellery-backed loans, rural reach. An endorsement of the trade, not of this balance sheet.</p>
+        </article>
+        <article>
+          <div class="k">The Tuesday dive</div>
+          <h2>Sixty-nine percent</h2>
+          <p>NBFC gold-jewellery loans ₹3.42 lakh crore in June, +69.3% — fastest book in the system. Gold overtook vehicles as the largest securitised asset class in Q1. NBFCs wrote 98% of that paper.</p>
+          <p>For Fincorp: the regulatory wind is at your back. The tap in the ABS market is real. The two risks Jefferies already used on Muthoot Finance — quieter gold, banks at higher tickets — are the same two to watch here.</p>
+        </article>
+        <article>
+          <div class="k">Results</div>
+          <h2>Loud quarters next door</h2>
+          <p>Muthoot Finance Q1 PAT ₹2,825 crore, +43%. Gold AUM ₹1.63 lakh crore, +44%. Manappuram PAT ₹585 crore, +341%. Chola raising ₹55,000 crore of NCDs.</p>
+        </article>
+        <article>
+          <div class="k">Asset quality</div>
+          <h2>The MFI overhang thins</h2>
+          <p>Borrowers with four or more lenders: 1.35 million — 2% of 66 million. The 3-lender rule and the ₹2 lakh cap are doing the work. Those 1.35 million still hold the risk.</p>
+        </article>
+        <article>
+          <div class="k">Policy, one line</div>
+          <h2>Revolving credit</h2>
+          <p>NBFCs are asking RBI to rethink a term-loans-only push. Deep treatment lives in the Rules pages. This desk only flags the headline.</p>
+        </article>
+      </div>
+    </div>
+
+    <div id="rules" class="view">
+      <div class="lead-kicker">Regulation · Saturday 22 August</div>
+      <h1 class="headline">Five directions. One new lever.</h1>
+      <p class="dek">Housekeeping, then a bank-style intervention tool. Plus a list of seventeen, and eight fines in three weeks.</p>
+      <div class="split">
+        <div class="col">
+          <h2>The five</h2>
+          <table>
+            <thead><tr><th>#</th><th>Direction</th><th>Ref.</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td>Miscellaneous supervision — CFSS, fair practices, nomination, <b>PCA</b></td><td>DoS/467</td></tr>
+              <tr><td>2</td><td>Cybersecurity, technology risk and assurance</td><td>DoS/461</td></tr>
+              <tr><td>3</td><td>Statutory audit — joint audit above ₹15,000 cr</td><td>DoS/465</td></tr>
+              <tr><td>4</td><td>Compliance function — CCO independence</td><td>DoS/466</td></tr>
+              <tr><td>5</td><td>Supervisory returns</td><td>DoS/468</td></tr>
+            </tbody>
+          </table>
+          <h2>PCA lines, non-CIC</h2>
+          <table>
+            <thead><tr><th></th><th>Caution</th><th>Warning</th><th>Critical</th></tr></thead>
+            <tbody>
+              <tr><td>CRAR</td><td>&lt;15 ≥12</td><td>&lt;12 ≥9</td><td>&lt;9</td></tr>
+              <tr><td>Tier 1</td><td>&lt;10 ≥8</td><td>&lt;8 ≥6</td><td>&lt;6</td></tr>
+              <tr><td>NNPA</td><td>&gt;6 ≤9</td><td>&gt;9 ≤12</td><td>&gt;12</td></tr>
+            </tbody>
+          </table>
+          <p>Threshold 1 already stops dividends and asks promoters for equity. Threshold 3 starts cutting capex and variable cost. RBI may publish entry and exit.</p>
+        </div>
+        <aside class="rail">
+          <h2>FP&amp;A, four things</h2>
+          <p>1. Monthly CRAR / Tier 1 / NNPA, not just quarter-end.</p>
+          <p>2. Internal amber at least 200 bps inside each official line.</p>
+          <p>3. No NPA upgrade without full arrears — see MCred.</p>
+          <p>4. Board pack: PCA indicators every quarter.</p>
+          <div class="flag">Draft revolving-credit ban: comments 28 August. Second draft, interest-rate rulebook for every RE: comments 11 September, proposed 1 April 2027.</div>
+        </aside>
+      </div>
+    </div>
+
+    <div id="how" class="view">
+      <div class="lead-kicker">Not a website. A cupboard with a cover.</div>
+      <h1 class="headline">How the paper would be made.</h1>
+      <p class="dek">You would never upload anything. The two desks already write. They would also leave a clean copy in a dated folder. This file is what opening Saturday would feel like.</p>
+      <div class="how-grid">
+        <section>
+          <div class="num">1</div>
+          <h2>They write.</h2>
+          <p>7:00 Daily Watch. 8:15 Regulatory Monitor. Mondays, a weekly. Same as now. Telegram still knocks.</p>
+        </section>
+        <section>
+          <div class="num">2</div>
+          <h2>They file.</h2>
+          <p>Each job saves <i>2026-08-22 / 01-daily-watch</i> and <i>02-regulation</i>. If a job fails, the shelf stays empty. You see the hole.</p>
+        </section>
+        <section>
+          <div class="num">3</div>
+          <h2>You open.</h2>
+          <p>One cover, like this. Front page first. Markets and Rules when you want the rest. Last month is still on the shelf.</p>
+        </section>
+      </div>
+    </div>
+  </div>
+  <script>
+    const buttons = document.querySelectorAll("nav button");
+    const views = document.querySelectorAll(".view");
+    buttons.forEach((b) => b.addEventListener("click", () => {
+      buttons.forEach((x) => x.setAttribute("aria-current", x === b ? "true" : "false"));
+      views.forEach((v) => v.classList.toggle("on", v.id === b.dataset.view));
+      window.scrollTo(0, 0);
+    }));
+  </script>
+</body>
+</html>

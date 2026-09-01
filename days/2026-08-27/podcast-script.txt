@@ -1,0 +1,17 @@
+It's Wednesday, the twenty-seventh of August, and the RBI just dropped something that should have every NBFC CFO paying attention.
+
+So on August twelfth, the RBI put out draft directions on interest rate regulation. Not just for NBFCs. For everyone. Banks, cooperatives, housing finance companies, all of them. One single rulebook for how you price a loan. The comment period closes September eleventh, and the final rules kick in from April next year.
+
+Now, most of it is housekeeping. They want a standardised way to set internal benchmarks. They want the spread, which is basically your margin over the benchmark, broken down into components: credit risk premium, operating cost, term premium, and so on. That spread component, apart from the credit risk premium, cannot be changed for three years after the loan is first disbursed. For floating rate loans, the benchmark has to reset at least every three months.
+
+But here's the part that matters. Paragraph six point six. The RBI says every regulated lender must set an explicit ceiling on the Annual Percentage Rate for two categories of loans: microfinance loans and personal loans up to fifty thousand rupees. That ceiling must be "not usurious." And that's it. No number. No percentage. Just the word "not usurious."
+
+I had to read that twice. Because what the RBI is really saying is: you figure out what's reasonable, get your board to sign off on it, and be ready to explain it to us if we ask. It's the same instinct they had in twenty twenty-one when they replaced the twenty-four percent microfinance lending ceiling with a cost of funds formula. They don't want a bright line that lenders can design around. They want supervisory judgment.
+
+For MFL, this matters on two fronts. The gold loan book will need a formal internal benchmark, documented spread methodology, and a reset policy. That's manageable. The bigger question is what "not usurious" means for the microfinance subsidiary. The RBI has given themselves plenty of runway here. Rules take effect April twenty twenty-seven. Existing books need to migrate by April twenty twenty-nine. That's not the timeline of a regulator trying to catch anyone off guard. It reads more like: sort this out yourselves before we have to do it for you.
+
+Separately, last Tuesday the RBI tightened large exposure rules for infrastructure debt fund NBFCs in the Upper Layer. They now face the same concentration limits as infrastructure finance companies. It doesn't touch MFL, but it shows where the RBI's head is at. Tighter risk controls across the board.
+
+And if you've got any securitisation transactions in the pipeline, the comment deadline for the draft securitisation amendment directions is today. The big change there: securitisation notes would need to be dematerialised with a minimum ticket size of one crore rupees.
+
+That's the week so far. The interest rate draft is the one to watch. Get your thoughts in before September eleventh.

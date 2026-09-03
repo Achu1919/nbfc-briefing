@@ -1,0 +1,17 @@
+It's Wednesday, the second of September. Quiet day on the RBI front — no new circulars, no press releases touching NBFCs. But there's one thing that's been sitting in my head and I want to make sure Achu doesn't let it slip.
+
+The draft Interest Rate Directions. The ones RBI put out on the twelfth of August. Comment deadline is the eleventh of September. That's nine days from now. If MFL wants to say anything — through FIDC or directly — the window's closing fast.
+
+Here's what's actually in it. The RBI wants every regulated entity — banks, NBFCs, housing finance companies, everyone — to price loans off a benchmark plus a risk-based spread. Sounds straightforward. But there are a few bits that matter for us.
+
+First, microfinance loans fifty thousand rupees and below get an APR ceiling. If MFL has any MFI-style products in that ticket size, the pricing model needs a look.
+
+Second, you can't lend below the benchmark. No more below-benchmark pricing to win deals. That's a change for how some NBFCs operate, though MFL's gold loan book probably doesn't hit this much.
+
+Third, existing floating-rate loans migrate to the new framework by April first, two thousand twenty-nine. Two and a half years sounds like a lot. It isn't, when you think about systems, documentation, and Board approvals across every product.
+
+So the real question isn't whether to submit comments. It's whether the gap analysis has started. Gold loan pricing, MSME rates, personal loans — each one needs a formal benchmark plus spread story that a regulator could read and nod at. Board's going to need to sign off on that.
+
+On the governance front — yesterday's teaching session covered this in detail, but one quick thing. The new PCA framework from the July thirty-first directions means the Board can't just glance at CRAR and NPA numbers once a quarter anymore. If they breach thresholds, RBI can restrict dividends, branch expansion, even management compensation. That's not theoretical. That's a real constraint on what the company can do. The Risk Management Committee needs to have those numbers front and center at every meeting.
+
+That's it for today. No fires. But the Interest Rate Directions clock is ticking. Nine days.

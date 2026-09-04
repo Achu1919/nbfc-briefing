@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Briefing — v2 design demo (Liquid Glass × M3)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#eef1f8; --card:#ffffff; --card2:#f5f7fd;
+  --ink:#141a2e; --body:#3c445f; --mute:#7b84a0; --faint:#aab1c8;
+  --hair:#e2e7f3; --brand:#1f49e0; --brand-ink:#15319b; --brand-soft:#e8edff;
+  --rule:#c22525; --rule-soft:#fdecec; --gold:#9a6f14; --gold-soft:#faf3df;
+  --good:#178a4c; --good-soft:#e6f6ec; --amber:#b26a00; --amber-soft:#fdf3e2;
+  --nav:rgba(255,255,255,.78); --r:20px;
+  --shadow:0 1px 2px rgba(20,26,46,.05),0 16px 40px -24px rgba(31,73,224,.25);
+  --serif:"Fraunces",Georgia,serif; --read:"Newsreader",Georgia,serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --sans:"Inter",-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+}
+body.evening{
+  --bg:#0d1120; --card:#161c33; --card2:#1b2240;
+  --ink:#ecf0fd; --body:#b9c1da; --mute:#8b94b3; --faint:#5b6486;
+  --hair:#262e52; --brand:#6f8dff; --brand-ink:#b9c6ff; --brand-soft:#232c5c;
+  --rule:#ff7a7a; --rule-soft:#3a1d29; --gold:#e0b44f; --gold-soft:#2c2517;
+  --good:#4fd48a; --good-soft:#123527; --amber:#e8a33d; --amber-soft:#33270f;
+  --nav:rgba(13,17,32,.78);
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 18px 44px -24px rgba(0,0,0,.7);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);
+  -webkit-font-smoothing:antialiased;transition:background .25s,color .25s}
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+button{font-family:inherit}
+/* header */
+.hd{position:sticky;top:12px;z-index:50;margin:12px auto 0;max-width:1120px;
+  background:var(--nav);backdrop-filter:saturate(170%) blur(20px);-webkit-backdrop-filter:saturate(170%) blur(20px);
+  border:1px solid var(--hair);border-radius:24px;box-shadow:var(--shadow)}
+.hd-in{display:flex;align-items:center;gap:14px;padding:12px 18px}
+.logo{width:34px;height:34px;border-radius:10px;background:var(--brand);color:#fff;flex:none;
+  display:flex;align-items:center;justify-content:center;font:700 17px var(--sans)}
+.brand b{font-size:15px;display:block;line-height:1.1}
+.brand b .priv{font:600 8px var(--mono);letter-spacing:.08em;color:var(--amber);
+  border:1px solid currentColor;border-radius:20px;padding:1px 6px;vertical-align:2px;margin-left:6px}
+.brand span{font:400 10px var(--mono);color:var(--mute)}
+.tabs{display:flex;gap:4px;margin-left:8px;background:var(--card2);border:1px solid var(--hair);
+  border-radius:980px;padding:3px}
+.tabs button{border:0;background:transparent;color:var(--mute);font:500 12px var(--sans);
+  padding:8px 16px;border-radius:980px;cursor:pointer;white-space:nowrap}
+.tabs button[aria-current="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 4px rgba(0,0,0,.12)}
+.hd-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.ampm{display:flex;border:1px solid var(--hair);border-radius:980px;overflow:hidden;background:var(--card)}
+.ampm button{border:0;background:transparent;color:var(--mute);font:600 10px var(--mono);padding:6px 10px;cursor:pointer}
+.ampm button.on{background:var(--ink);color:var(--bg)}
+.searchpill{display:flex;align-items:center;gap:6px;border:1px solid var(--hair);background:var(--card);
+  border-radius:980px;padding:7px 12px;font:400 12px var(--mono);color:var(--mute);cursor:pointer}
+.avatar{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#5b7cff,#9b6bff);
+  display:flex;align-items:center;justify-content:center;font:700 13px var(--sans);color:#fff;position:relative}
+.avatar::after{content:"";position:absolute;right:-1px;bottom:-1px;width:9px;height:9px;border-radius:50%;
+  background:var(--good);border:2px solid var(--card)}
+.dayrow{display:flex;align-items:center;gap:8px;padding:0 18px 12px;font:400 11px var(--mono);color:var(--mute)}
+.dayrow .pill{border:1px solid var(--hair);border-radius:980px;padding:5px 12px;background:var(--card)}
+.dayrow .pill.now{background:var(--brand);border-color:var(--brand);color:#fff;font-weight:600}
+.dayrow .live{margin-left:auto;color:var(--good);display:flex;gap:6px;align-items:center}
+.dl{margin-left:8px;font:500 11px var(--mono);color:var(--brand);background:none;border:0;cursor:pointer}
+/* views */
+.view{display:none}.view.on{display:block}
+/* hero */
+.hero{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:30px 32px;margin-top:18px;display:flex;gap:24px}
+.kicker{font:600 10px var(--mono);letter-spacing:.14em;color:var(--brand);
+  background:var(--brand-soft);display:inline-block;padding:4px 10px;border-radius:6px;margin-bottom:12px}
+.hero h1{font-family:var(--serif);font-weight:500;font-size:clamp(34px,4.6vw,52px);line-height:1.04;letter-spacing:-.015em}
+.hero .dek{font-family:var(--read);font-size:16.5px;color:var(--body);line-height:1.55;margin-top:12px;max-width:56em}
+.hero-stats{margin-left:auto;display:flex;gap:26px;flex:none;align-items:flex-start;text-align:right}
+.hstat .l{font:600 9px var(--mono);letter-spacing:.12em;color:var(--mute)}
+.hstat .v{font:700 20px var(--sans);margin-top:4px}
+.hstat .v.blue{color:var(--brand)}.hstat .v.brown{color:var(--amber)}
+/* snapshot */
+.snap{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
+  box-shadow:var(--shadow);margin-top:16px;padding:6px 0}
+.snap-head{display:flex;justify-content:space-between;padding:12px 22px 4px;
+  font:600 10px var(--mono);letter-spacing:.1em;color:var(--mute)}
+.snap-grid{display:grid;grid-template-columns:repeat(5,1fr)}
+.cell{padding:12px 22px 16px;border-left:1px solid var(--hair)}
+.cell:first-child{border-left:0}
+.cell.hl{background:var(--gold-soft);border-radius:12px}
+.cell .l{font:600 9px var(--mono);letter-spacing:.1em;color:var(--mute)}
+.cell .v{font:700 17px var(--sans);margin:5px 0 2px;font-variant-numeric:tabular-nums}
+.cell .v small{font-size:11px;font-weight:400;color:var(--mute)}
+.cell .s{font:400 10px var(--mono)}
+.up{color:var(--good)}.down{color:var(--rule)}
+.tagchip{font:600 9px var(--mono);padding:1px 7px;border-radius:20px}
+.tagchip.g{background:var(--good-soft);color:var(--good)}.tagchip.b{background:var(--brand-soft);color:var(--brand)}
+/* section titles */
+.sec{display:flex;align-items:baseline;gap:10px;margin:26px 2px 14px}
+.sec .ico{width:26px;height:26px;border-radius:50%;background:var(--gold-soft);flex:none;
+  display:inline-flex;align-items:center;justify-content:center;font-size:13px;transform:translateY(5px)}
+.sec h2{font-family:var(--serif);font-size:23px;font-weight:600}
+.sec p{font-size:12px;color:var(--mute)}
+.sec .r{margin-left:auto;font:500 10px var(--mono);letter-spacing:.08em;color:var(--brand);
+  background:var(--brand-soft);padding:4px 12px;border-radius:20px}
+/* scan */
+.scan3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.scan{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:20px;cursor:pointer;transition:transform .12s}
+.scan:hover{transform:translateY(-2px)}
+.scan.read{opacity:.6}
+.scan-top{display:flex;justify-content:space-between;font:600 9px var(--mono);letter-spacing:.08em;margin-bottom:10px}
+.pilltag{padding:3px 9px;border-radius:20px}
+.pilltag.red{background:var(--rule-soft);color:var(--rule)}
+.pilltag.blue{background:var(--brand-soft);color:var(--brand)}
+.pilltag.amber{background:var(--amber-soft);color:var(--amber)}
+.scan-time{color:var(--faint)}
+.scan h3{font-family:var(--serif);font-size:21px;line-height:1.15;margin-bottom:8px}
+.scan p{font-family:var(--read);font-size:14.5px;color:var(--body);line-height:1.55}
+.scan .mini{margin-top:12px;border:1px solid var(--hair);border-radius:12px;padding:10px 12px;
+  font:500 11px var(--mono);background:var(--card2)}
+.scan .mini b{color:var(--brand)}
+/* audio bar */
+.abar{background:var(--card);border:1px solid var(--hair);border-radius:980px;box-shadow:var(--shadow);
+  margin-top:16px;padding:12px 20px;display:flex;align-items:center;gap:14px}
+.play{width:38px;height:38px;border-radius:50%;border:0;background:var(--brand);color:#fff;
+  font-size:14px;cursor:pointer;flex:none}
+.abar .t b{font-size:13px;display:block}.abar .t span{font:400 10px var(--mono);color:var(--mute)}
+.wave{display:flex;gap:2.5px;align-items:center;height:26px;margin-left:8px}
+.wave i{width:3px;border-radius:2px;background:var(--brand);opacity:.85}
+.abar .grow{flex:1}.abar .tm{font:500 11px var(--mono);color:var(--mute);white-space:nowrap}
+.spd{border:1px solid var(--hair);background:var(--card2);border-radius:8px;font:600 11px var(--mono);
+  padding:6px 9px;cursor:pointer;color:var(--ink)}
+.trx{border:1px solid var(--hair);background:var(--card2);border-radius:8px;font:500 11px var(--mono);
+  padding:6px 10px;cursor:pointer;color:var(--mute)}
+.abar .est{margin-left:auto;text-align:right;font:600 10px var(--mono);color:var(--mute)}
+.abar .est b{display:block;font-size:15px;color:var(--ink)}
+.transcript{display:none;background:var(--card);border:1px solid var(--hair);border-radius:14px;
+  margin-top:10px;padding:14px 18px;font-family:var(--read);font-style:italic;font-size:14.5px;color:var(--body)}
+.transcript.on{display:block}
+/* desks */
+.desks{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.desk{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);box-shadow:var(--shadow);padding:22px}
+.desk-top{display:flex;gap:8px;align-items:center;font:600 10px var(--mono);margin-bottom:12px;flex-wrap:wrap}
+.desk-top .who{color:var(--mute);font-weight:400}
+.desk-top .rt{margin-left:auto;font-weight:500}
+.rt.green{color:var(--good)}.rt.blue{color:var(--brand)}
+.desk h3{font-family:var(--serif);font-size:23px;line-height:1.18;font-weight:500;margin-bottom:8px}
+.desk .sub{font-family:var(--read);font-size:14.5px;color:var(--body);line-height:1.55;margin-bottom:14px}
+.impact{border:1px solid var(--hair);background:var(--card2);border-radius:12px;padding:10px 14px;
+  font:500 11.5px var(--sans);margin-bottom:16px;display:flex;gap:8px;align-items:center}
+.chipsrow{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.chipsrow span{font:500 10.5px var(--mono);border:1px solid var(--hair);border-radius:8px;padding:5px 10px;color:var(--body);background:var(--card2)}
+.cta{width:100%;border:0;border-radius:12px;background:var(--brand);color:#fff;font:600 14px var(--sans);
+  padding:14px;cursor:pointer}
+.cta.ghost{background:var(--card2);color:var(--brand);border:1px solid var(--hair)}
+.cta:active{transform:scale(.98)}
+.curator{display:flex;align-items:center;gap:8px;margin-top:12px;font:400 11px var(--mono);color:var(--mute)}
+.curator .avatar{width:22px;height:22px;font-size:10px}
+.weekly{grid-column:1/-1;display:flex;gap:14px;align-items:center;background:var(--card);
+  border:1px solid var(--hair);border-radius:var(--r);box-shadow:var(--shadow);padding:18px 22px}
+.weekly .cal{width:38px;height:38px;border-radius:12px;background:var(--brand-soft);flex:none;
+  display:flex;align-items:center;justify-content:center;font-size:18px}
+.weekly b{font-size:14px}.weekly p{font:400 11.5px var(--mono);color:var(--mute);margin-top:2px}
+.weekly .sp{margin-left:auto;display:flex;gap:8px}
+.btnline{border:1px solid var(--hair);background:var(--card2);color:var(--ink);border-radius:980px;
+  font:500 12px var(--sans);padding:9px 18px;cursor:pointer}
+.locked{border-radius:980px;background:var(--card2);color:var(--mute);font:500 12px var(--sans);padding:9px 18px;border:1px solid var(--hair)}
+/* duo */
+.duo{display:grid;grid-template-columns:1.15fr 1fr;gap:16px;margin-top:16px}
+.panel{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);box-shadow:var(--shadow);padding:22px}
+.panel .ph{display:flex;justify-content:space-between;font:600 10px var(--mono);letter-spacing:.1em;color:var(--mute);margin-bottom:6px}
+.panel h3{font-family:var(--serif);font-size:22px;font-weight:600}
+.panel .grade{font:600 9px var(--mono);color:var(--amber);background:var(--amber-soft);padding:3px 10px;border-radius:20px}
+.art{border-radius:14px;margin:14px 0;position:relative;overflow:hidden;border:1px solid var(--hair);
+  min-height:170px;background:linear-gradient(120deg,#232a3d 0%,#3a3f55 40%,#6b5a2e 75%,#2a2113 100%)}
+.art.vault::before{content:"";position:absolute;inset:18px 24px auto 24px;height:64px;
+  background:repeating-linear-gradient(90deg,#d8a83c 0 16px,#7d5c14 16px 20px);opacity:.85;
+  box-shadow:0 30px 0 -6px #4a4438,0 60px 0 -10px #d8a83c}
+.art.branch{background:linear-gradient(180deg,#8fa3c8 0%,#cfd8e8 45%,#5d7048 45.5%,#3c4a30 100%)}
+.art .cap{position:absolute;left:14px;bottom:12px;right:14px;color:#fff}
+.art .cap b{font-size:14px;text-shadow:0 1px 6px rgba(0,0,0,.6);display:block}
+.art .cap span{font:400 10px var(--mono);opacity:.85}
+.kv{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px}
+.kv .k{border:1px solid var(--hair);border-radius:12px;padding:12px 14px;background:var(--card2)}
+.kv .l{font:600 9px var(--mono);letter-spacing:.08em;color:var(--mute)}
+.kv .n{font:700 19px var(--sans);margin-top:4px}.kv .n small{font-size:11px;font-weight:400;color:var(--mute)}
+.kv .s{font:500 10.5px var(--mono);margin-top:2px}
+.panel .ft{display:flex;justify-content:space-between;margin-top:14px;font:500 11px var(--mono);color:var(--mute)}
+.panel .ft a{color:var(--brand);text-decoration:none}
+/* article */
+.crumb{display:flex;gap:6px;flex-wrap:wrap;margin:18px 0 12px}
+.crumb span{font:500 10px var(--mono);border:1px solid var(--hair);background:var(--card);
+  border-radius:8px;padding:5px 10px;color:var(--mute)}
+.crumb span.hot{background:var(--rule-soft);color:var(--rule);border-color:transparent}
+.artgrid{display:grid;grid-template-columns:1fr 290px;gap:16px;align-items:start}
+.sheet{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);box-shadow:var(--shadow);
+  padding:34px 38px;margin-bottom:16px}
+.sheet .meta{font:400 10px var(--mono);color:var(--mute);letter-spacing:.06em;margin-bottom:8px}
+.sheet h1{font-family:var(--serif);font-size:clamp(28px,3.6vw,40px);line-height:1.1;font-weight:600;margin-bottom:10px}
+.byline{display:flex;gap:8px;align-items:center;font:400 11px var(--mono);color:var(--mute);margin-bottom:16px}
+.byline .vtag{color:var(--good);border:1px solid currentColor;border-radius:6px;padding:1px 7px}
+.sheet .art{min-height:220px}
+.pull{border-left:3px solid var(--brand);font-family:var(--serif);font-style:italic;font-size:19px;
+  line-height:1.45;padding:4px 0 4px 16px;margin:18px 0;color:var(--ink)}
+.sheet .md{font-family:var(--read);font-size:16.5px;line-height:1.7;color:var(--body)}
+.sheet .md p{margin-bottom:12px}
+.sheet .md p.drop::first-letter{font-family:var(--serif);font-size:52px;float:left;line-height:.85;
+  padding-right:8px;color:var(--brand)}
+.angles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}
+.angle{border:1px solid var(--hair);border-radius:12px;padding:12px;background:var(--card2)}
+.angle .n{font:700 10px var(--mono);color:var(--brand)}
+.angle b{font-size:12.5px;display:block;margin:4px 0}
+.angle p{font-size:11.5px!important;color:var(--mute)!important;line-height:1.5!important}
+.lensbox{border:1px solid var(--hair);border-left:4px solid var(--rule);border-radius:12px;
+  padding:14px 16px;margin:16px 0;background:var(--card2)}
+.lensbox .lh{font:700 11px var(--mono);color:var(--rule);margin-bottom:10px;display:flex;gap:8px;align-items:center}
+.lensbox .lh .sp{margin-left:auto;color:var(--mute);font-weight:400}
+.lrow{display:flex;gap:10px;padding:10px 0;border-top:1px solid var(--hair);font-size:12.5px}
+.lrow:first-of-type{border-top:0}
+.lrow .no{width:22px;height:22px;border-radius:50%;flex:none;font:700 11px var(--sans);color:#fff;
+  display:flex;align-items:center;justify-content:center}
+.lrow b{display:block;font-size:12.5px}.lrow p{font-family:var(--read);font-size:13.5px;color:var(--body)}
+.bars{margin:14px 0}
+.bars .bl{font:600 10px var(--mono);color:var(--mute);letter-spacing:.06em;margin-bottom:8px}
+.brow{display:grid;grid-template-columns:150px 1fr 64px;gap:10px;align-items:center;font:500 11px var(--mono);margin-bottom:7px}
+.btrack{height:8px;background:var(--card2);border:1px solid var(--hair);border-radius:6px;overflow:hidden}
+.btrack i{display:block;height:100%;border-radius:6px}
+table.grid{width:100%;border-collapse:collapse;font:400 11px var(--mono);margin:12px 0}
+table.grid th{font-size:9px;letter-spacing:.1em;color:var(--mute);text-align:left;padding:8px;border-bottom:1px solid var(--hair)}
+table.grid td{padding:9px 8px;border-bottom:1px solid var(--hair)}
+.st{font-weight:600;padding:2px 8px;border-radius:12px;font-size:10px}
+.st.g{background:var(--good-soft);color:var(--good)}.st.b{background:var(--brand-soft);color:var(--brand)}
+.st.a{background:var(--amber-soft);color:var(--amber)}
+.tiles3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0}
+.tile{border:1px solid var(--hair);border-radius:12px;padding:12px;background:var(--card2)}
+.tile .l{font:600 9px var(--mono);color:var(--mute)}.tile .n{font:700 17px var(--sans);margin:3px 0}
+.tile .s{font:400 10px var(--mono);color:var(--mute)}
+.banner{border-radius:12px;background:linear-gradient(120deg,#1f49e0,#6a3df0);color:#fff;
+  padding:14px 18px;font:600 14px var(--sans);margin:12px 0}
+.banner small{display:block;font:400 10.5px var(--mono);opacity:.8;margin-top:2px}
+.refs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.ref{border:1px solid var(--hair);border-radius:12px;padding:12px;font-size:11.5px;background:var(--card2)}
+.ref b{display:block;font-size:11.5px;margin-bottom:3px}
+.ref span{font:400 10px var(--mono);color:var(--mute)}
+.sheetbtns{display:flex;gap:10px;margin-top:14px}
+.rail .card{background:var(--card);border:1px solid var(--hair);border-radius:16px;
+  box-shadow:var(--shadow);padding:16px;margin-bottom:12px}
+.rail .card h4{font:600 10px var(--mono);letter-spacing:.1em;color:var(--mute);margin-bottom:10px}
+.rail .big{font:700 19px var(--sans)}
+.nextdesk{background:var(--card);border:1px solid var(--hair);border-radius:16px;padding:16px 20px;
+  display:flex;gap:12px;align-items:center;margin-bottom:60px}
+/* archive */
+.repohead{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:22px;margin-top:18px}
+.repohead .rt{display:flex;gap:12px;align-items:center}
+.repohead h2{font-family:var(--serif);font-size:24px}
+.repohead p{font:400 11.5px var(--mono);color:var(--mute);margin-top:4px}
+.qrow{display:flex;gap:8px;margin-top:14px}
+.qrow .qin{flex:1;display:flex;align-items:center;gap:8px;border:1px solid var(--hair);
+  border-radius:980px;padding:0 8px 0 16px;background:var(--card2)}
+.qrow input{flex:1;border:0;background:transparent;color:var(--ink);font:400 13px var(--sans);
+  padding:12px 0;outline:none}
+.qbtn{border:0;border-radius:980px;background:var(--brand);color:#fff;font:600 13px var(--sans);
+  padding:0 24px;cursor:pointer}
+.fchips{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.fchips button{border:1px solid var(--hair);background:var(--card2);color:var(--body);
+  font:500 11.5px var(--sans);border-radius:980px;padding:8px 15px;cursor:pointer}
+.fchips button.on{background:var(--brand);border-color:var(--brand);color:#fff}
+.archgrid{display:grid;grid-template-columns:250px 1fr;gap:16px;margin-top:16px;align-items:start}
+.cal{background:var(--card);border:1px solid var(--hair);border-radius:16px;box-shadow:var(--shadow);padding:16px}
+.cal h4{font-family:var(--serif);font-size:17px;margin-bottom:10px}
+.cal .days{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;text-align:center}
+.cal .d{border:1px solid var(--hair);border-radius:10px;padding:7px 0;font:600 13px var(--sans);background:var(--card2)}
+.cal .d small{display:block;font:600 8px var(--mono);color:var(--mute)}
+.cal .d.sel{background:var(--brand);color:#fff;border-color:var(--brand)}
+.cal .d.sel small{color:#fff}
+.cal .lg{font:400 10px var(--mono);color:var(--mute);margin-top:10px;line-height:2}
+.sla{display:flex;gap:10px;align-items:center;border-top:1px solid var(--hair);margin-top:10px;padding-top:12px}
+.ring{width:40px;height:40px;border-radius:50%;flex:none;
+  background:conic-gradient(var(--brand) 0 98%,var(--hair) 98% 100%);
+  display:flex;align-items:center;justify-content:center}
+.ring::after{content:"98%";width:30px;height:30px;border-radius:50%;background:var(--card);
+  display:flex;align-items:center;justify-content:center;font:700 8px var(--sans)}
+.sla b{font-size:12px}.sla span{font:400 10px var(--mono);color:var(--mute)}
+.doc{background:var(--card);border:1px solid var(--hair);border-radius:16px;box-shadow:var(--shadow);
+  padding:20px 22px;margin-bottom:12px}
+.doc.err{border-color:var(--rule)}
+.doc-top{display:flex;gap:8px;align-items:center;font:600 10px var(--mono);margin-bottom:10px;flex-wrap:wrap}
+.doc-top .t{color:var(--mute);font-weight:400}
+.doc h3{font-family:var(--serif);font-size:22px;line-height:1.2;font-weight:500;margin-bottom:8px}
+.doc .abs{font-family:var(--read);font-size:14px;color:var(--body);line-height:1.6;margin-bottom:10px}
+.doctags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.doctags span{font:500 10px var(--mono);background:var(--brand-soft);color:var(--brand);
+  border-radius:7px;padding:4px 9px}
+.logbox{background:#10142a;color:#9fe8b8;font:400 10.5px var(--mono);border-radius:10px;
+  padding:12px 14px;margin:10px 0;overflow-x:auto;white-space:pre}
+.doc-ft{display:flex;align-items:center;gap:10px;font:400 11px var(--mono);color:var(--mute);flex-wrap:wrap}
+.doc-ft .go{margin-left:auto;color:var(--brand);font-weight:600;background:none;border:0;cursor:pointer;font-size:12px}
+.retry{background:var(--rule);color:#fff;border:0;border-radius:10px;font:600 12.5px var(--sans);
+  padding:11px 18px;cursor:pointer}
+/* footer, snack, bnav */
+footer{margin:34px 0 0;padding:20px 0 90px}
+footer .wrap{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font:400 10px var(--mono);color:var(--mute)}
+footer b{font-family:var(--serif);font-size:14px;color:var(--ink)}
+.snack{position:fixed;left:50%;bottom:96px;transform:translateX(-50%) translateY(16px);
+  background:var(--ink);color:var(--bg);font:500 12px var(--mono);padding:12px 22px;border-radius:12px;
+  opacity:0;pointer-events:none;transition:all .25s;z-index:99;max-width:90vw;text-align:center}
+.snack.on{opacity:1;transform:translateX(-50%) translateY(0)}
+.bnav{display:none}
+.m-only{display:none}
+/* responsive */
+@media(max-width:900px){
+  .tabs{display:none}
+  .searchpill{display:none}
+  .snap-grid{grid-template-columns:1fr 1fr}
+  .cell:nth-child(3){border-left:0}
+  .cell{border-top:1px solid var(--hair)}
+  .cell:nth-child(-n+2){border-top:0}
+  .scan3,.desks,.duo,.artgrid,.archgrid{grid-template-columns:1fr}
+  .hero{flex-direction:column;padding:22px}
+  .hero-stats{text-align:left}
+  .weekly{flex-direction:column;align-items:flex-start}
+  .weekly .sp{margin-left:0}
+  .sheet{padding:24px 20px}
+  .angles,.refs,.tiles3{grid-template-columns:1fr}
+  .abar{flex-wrap:wrap;border-radius:22px}
+  .abar .est{margin-left:0}
+  .m-only{display:block}
+  .bnav{display:flex;position:fixed;bottom:10px;left:12px;right:12px;z-index:60;
+    background:var(--nav);backdrop-filter:saturate(170%) blur(20px);-webkit-backdrop-filter:saturate(170%) blur(20px);
+    border:1px solid var(--hair);border-radius:22px;box-shadow:var(--shadow);padding:6px}
+  .bnav button{flex:1;background:none;border:0;padding:9px 0;color:var(--mute);
+    font:600 11px var(--sans);border-radius:14px;cursor:pointer}
+  .bnav button[aria-current="true"]{background:var(--brand);color:#fff}
+  footer{padding-bottom:110px}
+  .hd{top:8px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="hd"><div class="hd-in">
+  <div class="logo">B</div>
+  <div class="brand"><b>The Briefing <span class="priv">HO PRIVATE</span></b><span>Muthoot Fincorp Executive Desk · Morning Dispatch</span></div>
+  <div class="tabs">
+    <button data-view="today" aria-current="true">Today / Desks</button>
+    <button data-view="article" aria-current="false">Article Reading</button>
+    <button data-view="archive" aria-current="false">Archive &amp; Search</button>
+  </div>
+  <div class="hd-right">
+    <span class="ampm"><button id="amBtn" class="on">AM</button><button id="pmBtn">PM</button></span>
+    <span class="searchpill" data-goto="archive">⌕ Briefing Intel</span>
+    <span class="avatar">A</span>
+  </div>
+</div>
+<div class="dayrow"><span>Thu 3 Sep</span><span class="pill now">● Today 4 Sep 2026</span><span>Mon 7 Sep</span>
+  <span class="live">● Live Sync: HO Treasury Gateway 08:31 IST</span>
+  <button class="dl" data-toast="PDF dossier export ships with the full build">⤓ Download PDF Dossier · 4.8 MB</button>
+</div></header>
+
+<!-- ══════ TODAY ══════ -->
+<section class="view on" id="view-today"><div class="wrap">
+  <div class="hero">
+    <div><span class="kicker">STRATEGIC OPERATIONS · Chief Executive Briefing Dispatch · Volume XXIV</span>
+      <h1>Liquidity Signals &amp; Gold Cushion</h1>
+      <p class="dek">Prepared exclusively for Achu (Financial Planning &amp; Analysis, Muthoot Fincorp HO). Systematic surveillance on systemic repo rate forecasts, RBI gold LTV shock calibrations, and retail loan stress benchmarks.</p></div>
+    <div class="hero-stats">
+      <div class="hstat"><div class="l">PORTFOLIO READ TIME</div><div class="v blue">8 Mins Scan</div></div>
+      <div class="hstat"><div class="l">HO ALLOCATION YIELD</div><div class="v brown">15.02% Safe</div></div>
+    </div>
+  </div>
+
+  <div class="snap">
+    <div class="snap-head"><span>◔ Institutional / Macro Snapshot · Real-time tick stream</span><span>Refreshed 32s ago</span></div>
+    <div class="snap-grid">
+      <div class="cell"><div class="l">BSE SENSEX</div><div class="v">82,410.50</div><div class="s up">+0.42% · +344.2 pts intraday</div></div>
+      <div class="cell"><div class="l">NIFTY 50</div><div class="v">25,235.90</div><div class="s up">+0.38% · +96.0 pts intraday</div></div>
+      <div class="cell hl"><div class="l">MCX GOLD 24K</div><div class="v">₹72,480<small>/10g</small></div><div class="s">Headroom <b>+4.2%</b> · <span class="down">−0.35%</span></div></div>
+      <div class="cell"><div class="l">FII / DII NET FLOW</div><div class="v">+₹3,530 Cr</div><div class="s"><span class="tagchip g">Inflow</span> Domestic institutional parity</div></div>
+      <div class="cell"><div class="l">PEER TICKERS (NSE)</div><div class="v" style="font-size:13px">Muthoot Fin ₹1,942.50 (+1.2%)</div><div class="s">Manappuram ₹198.40 (+0.8%)</div></div>
+    </div>
+  </div>
+
+  <div class="sec"><span class="ico">⚡</span><div><h2>The 2-Minute Executive Scan</h2><p>Urgent strategic intelligence for morning executive alignment</p></div><span class="r" id="readCount">Priority 1A · Required Reading · 0/3 read</span></div>
+  <div class="scan3" id="scanRow">
+    <div class="scan" tabindex="0"><div class="scan-top"><span class="pilltag red">● URGENT ATTENTION</span><span class="scan-time">08:10 IST</span></div>
+      <h3>Gold-Loan LTV Buffer Pressure</h3><p>RBI informal communique urges leading gold NBFCs to stress-test gold loan exposures under a hypothetical ₹68,000 bullion downside threshold.</p>
+      <div class="mini">Muthoot FP&amp;A Safe LTV <b>68.4%</b> · Max Regulatory Cap: 75% · <b>+10.8% Cushion Buffer</b></div></div>
+    <div class="scan" tabindex="0"><div class="scan-top"><span class="pilltag blue">GOVERNANCE &amp; CREDIT</span><span class="scan-time">07:55 IST</span></div>
+      <h3>Revolving Credit Line Delinquency Tightening</h3><p>Supervisory draft proposes strict 90-day comprehensive delinquency reviews for unsecured personal lines, with immediate capital provisioning multipliers.</p>
+      <div class="mini">Enterprise co-lending books <b>(&lt;4% of AUM)</b> · provisioning review due</div></div>
+    <div class="scan" tabindex="0"><div class="scan-top"><span class="pilltag amber">CAPITAL MARKETS</span><span class="scan-time">07:20 IST</span></div>
+      <h3>ARCIL IPO Filing Benchmarks</h3><p>Draft red-herring prospectus reveals benchmark asset reconstruction multiples at 2.4x P/BV, offering immediate premium exit windows for legacy NPA sales.</p>
+      <div class="mini">Estimated Realisation <b>₹142 Cr</b> · multiple <b>2.4x P/BV</b></div></div>
+  </div>
+  <div class="abar">
+    <button class="play" data-play="a1" aria-label="Play">▶</button>
+    <div class="t"><b>Executive Daily Dispatch <span style="font:400 10px var(--mono);color:var(--mute)">07:42 AM</span></b><span>Gold Loan Yields + RBI NBFC Regulatory Directives</span></div>
+    <div class="wave" id="w-a1"></div>
+    <span class="tm"><span id="t-a1">03:14</span> / 11:45</span>
+    <button class="spd" data-spd>1.5x</button>
+    <button class="trx" data-trx="trx1">Transcript</button>
+    <div class="grow"></div>
+  </div>
+  <div class="transcript" id="trx1">"Good morning Achu. RBI's cautionary note on non-bank gold exposures is the lead item…" (demo transcript — full text ships with the build)</div>
+
+  <div class="sec"><span class="ico" style="background:var(--brand-soft)">◔</span><div><h2>Daily Operational Desks</h2><p>Morning intelligence production tracks</p></div><span class="r">3 Production Tracks</span></div>
+  <div class="desks">
+    <div class="desk">
+      <div class="desk-top"><span class="pilltag blue">DESK 01 · NEWS</span><span class="who">jarvis · Released 7:00 AM</span><span class="rt green">● Ready to read · 6 min read</span></div>
+      <h3>What happened in markets and the financial sector today?</h3>
+      <p class="sub">Aggregated overnight macro shifts, interbank call-money rate spikes to 6.78%, and commercial paper issuances by tier-1 NBFCs. Contains 8 operational alerts specifically for credit risk and treasury heads.</p>
+      <div class="impact">📈 Muthoot Impact: Liquidity spread widens by +24 bps for Kerala and Tamil Nadu hubs.</div>
+      <div class="chipsrow"><span>MUTHOOT COST OF FUNDS TARGET <b>8.42%</b></span><span>660 bps Spread Cushion</span><span>CP Market Stable</span><span>ALM Negative Mismatch: NIL</span></div>
+      <button class="cta open-article">Open Daily Watch →</button>
+      <div class="curator"><span class="avatar">C</span> Curated by Chief Treasury Analyst · <span style="margin-left:auto">8 Alerts</span></div>
+    </div>
+    <div class="desk">
+      <div class="desk-top"><span class="pilltag blue">DESK 02 · RULES</span><span class="who">NBFC Guru · 8:15 AM</span><span class="rt blue">◉ Live Analysis</span></div>
+      <h3>What changed in the rulebook?</h3>
+      <p class="sub">Detailed regulatory interpretation on Co-lending PSL qualification updates and new guidelines on recurring digital mandate notifications.</p>
+      <div class="impact">🏛 Muthoot Compliance Risk Index <b>1.8 / 10 (Very Low)</b> · Action required by Legal: None</div>
+      <div class="chipsrow"><span>PSL Norms</span><span>Digital KYC Refresh</span><span>RBI Scale-Based Layer</span></div>
+      <button class="cta ghost open-article">Read Rules Dossier →</button>
+    </div>
+    <div class="weekly">
+      <div class="cal">📅</div>
+      <div><b>DESK 03 · WEEKLY MACRO REVIEW <span class="pilltag amber">Mondays Only</span></b>
+      <b style="font-family:var(--serif);font-size:17px;font-weight:500">What did the whole week mean for systemic liquidity?</b>
+      <p>Scheduled release in 72 hours (Monday 06:00 IST) · Lead Author: Chief Economist Desk</p></div>
+      <div class="sp"><button class="btnline" data-toast="Reminder set — Weekly lands Monday 06:00">☆ Set Alert</button><span class="locked">Locked</span></div>
+    </div>
+  </div>
+
+  <div class="duo">
+    <div class="panel"><div class="ph"><span>🏛 Bullion Vault Reserves</span><span class="grade">Audit Level: Grade AAA</span></div>
+      <div class="art vault"><div class="cap"><b>Cochin + Central Depository</b><span>Monitored 24×7 · Biometric Dual-Key</span></div></div>
+      <div class="kv">
+        <div class="k"><div class="l">Systemic Holding Weight</div><div class="n">187.4 <small>Metric Tonnes</small></div><div class="s up">+1.2 MT net monthly intake</div></div>
+        <div class="k"><div class="l">Insurance Underwriting</div><div class="n">99.8% <small>Insured</small></div><div class="s" style="color:var(--mute)">Full replacement value parity</div></div>
+      </div>
+      <div class="ft"><span>Physical Verification Cycle: Daily Branch Batching</span><a href="#" data-toast="Vault ledger opens in the full build" onclick="return false">View Vault Ledger →</a></div>
+    </div>
+    <div class="panel"><div class="ph"><span>● VOICE MEMO DISPATCH</span><span>04:12 mins</span></div>
+      <h3>CFO Morning Huddle Sync</h3>
+      <p style="font-family:var(--read);font-size:14px;color:var(--body);margin:6px 0 12px">Quick verbal summary on Q2 balance sheet optimization, capital adequacy headroom, and ALM committee key determinations.</p>
+      <div class="abar" style="margin-top:0">
+        <button class="play" data-play="a2" aria-label="Play">▶</button>
+        <div class="t"><b>Chief Financial Officer</b><span>Recorded today at 07:15 AM</span></div>
+        <div class="grow"></div><span class="tm"><span id="t-a2">01:14</span> / 04:12</span>
+      </div>
+      <div class="wave" id="w-a2" style="margin:12px 0 4px"></div>
+      <div class="ft"><span>⧉ Automated AI Transcript Attached</span><a href="#" data-toast="Speaker notes open in the full build" onclick="return false">View Speaker Notes</a></div>
+    </div>
+  </div>
+  <footer><div class="wrap" style="padding:0"><span><b>The Briefing • Muthoot Fincorp Executive HO</b><br />Strictly Confidential • Private Portfolio &amp; Strategic Operations Briefing</span><span>© 2026 Muthoot Pappachan Group. All strategic rights reserved.</span></div></footer>
+</div></section>
+
+<!-- ══════ ARTICLE ══════ -->
+<section class="view" id="view-article"><div class="wrap">
+  <div class="crumb"><span class="hot">● DAILY WATCH · MARKETS &amp; METALS</span><span>Priority Dispatch</span><span>RBI Action</span><span>Multibaggers</span><span>Peer Benchmarks</span><span>ESG Overlay</span><span>Quarterly</span></div>
+  <div class="artgrid">
+    <div>
+      <article class="sheet">
+        <div class="meta">RBI WATCH (MUMBAI) &amp; NSE METALS · Priority Dispatch · Thu 04 Sep 2026</div>
+        <h1>RBI Nudges Stricter Gold Loan LTV Buffers Amid Bullion Fluctuations; ARCIL Files Draft IPO Papers</h1>
+        <div class="byline"><span class="avatar" style="width:22px;height:22px;font-size:10px">J</span> Synthesized by Jarvis Desk · 6 min read · 07:00 AM IST <span class="vtag">✓ Verified Brief</span></div>
+        <div class="art vault"><div class="cap"><span>COLLATERAL REVALUATION DESK · MCX COMMODITIES · ₹72,480/10g</span></div></div>
+        <div class="pull">"With gold flirting with historic resistance levels, supervisory checks will examine whether lenders hold adequate buffers against episodic spikes."</div>
+        <div class="md">
+          <p class="drop">Regulatory authorities in Mumbai have intensified informal advisories directed toward top-tier Non-Banking Financial Companies (NBFCs) handling physical gold pledges. While the statutory ceiling for gold loans remains pegged at 75% LTV under the Master Direction, central bank inspectors are scrutinising intra-week appraisal methodologies to verify whether systemic lenders are building sufficient volatility buffers (demo text).</p>
+          <div class="angles">
+            <div class="angle"><span class="n">ANGLE 01</span><b>Purity &amp; Stone Deductions</b><p>Supervisors want standardised stone-weight deductions before LTV computation.</p></div>
+            <div class="angle"><span class="n">ANGLE 02</span><b>Bullet Repayment Limits</b><p>Single-shot bullet tenors face tighter renewal scrutiny at 12 months.</p></div>
+            <div class="angle"><span class="n">ANGLE 03</span><b>Auction-Window Timelines</b><p>90-day cure windows re-registered before ускор enforcement can proceed.</p></div>
+          </div>
+          <div class="lensbox"><div class="lh">◉ The Muthoot Lens <span style="font-weight:400">Conditional Directives for Muthoot Fincorp HO Branches</span><span class="sp">▲ Export Memo</span></div>
+            <div class="lrow"><span class="no" style="background:var(--rule)">1</span><div><b>Branch-Auction Trigger Sensitivity Threshold <span class="pilltag red">RE-ALIGN</span></b><p>Enforce auction triggers at ₹1,00,000 ticket if intra-week servicing cycles lapse — protects 99.8% geo-tagged custody coverage.</p></div></div>
+            <div class="lrow"><span class="no" style="background:var(--amber)">2</span><div><b>Prime Borrower Inflow Window <span class="pilltag amber">OPPORTUNITY</span></b><p>Competitors approaching 90% LTV limits face borrower churn — open express top-up lines for sub-68% LTV gold borrowers.</p></div></div>
+            <div class="lrow"><span class="no" style="background:var(--brand)">3</span><div><b>30-Day AM Liquidity Guardrail <span class="pilltag blue">COMPLIANCE</span></b><p>Cap commercial-paper CP rollover reliance under 18% of aggregate short-term obligations; preserve overnight high-quality liquid assets.</p></div></div>
+          </div>
+          <div class="bars"><div class="bl">Systemic NBFC Gold Book LTV Distribution — Q2 FY27 live comparison positioning vs RBI Statutory Cap</div>
+            <div class="brow"><span>Muthoot Fincorp HO</span><div class="btrack"><i style="width:68.2%;background:linear-gradient(90deg,#1f49e0,#6a8bff)"></i></div><span>68.2% Avg (LV)</span></div>
+            <div class="brow"><span>Manappuram Fin</span><div class="btrack"><i style="width:65.8%;background:#8b94b3"></i></div><span>65.8% Avg (LV)</span></div>
+            <div class="brow"><span>Industry Peer Average</span><div class="btrack"><i style="width:70.5%;background:#c9a13b"></i></div><span>70.5% Avg (LV)</span></div>
+            <div class="brow"><span>Statutory Maximum Ceiling</span><div class="btrack"><i style="width:75%;background:var(--rule)"></i></div><span>75.0% LV Limit</span></div>
+          </div>
+          <table class="grid"><tr><th>FINANCIAL ENTITY</th><th>GOLD-RUN UP</th><th>PORTFOLIO CUT</th><th>REPORTED GNPA</th><th>STATUS</th></tr>
+            <tr><td>Muthoot Finance</td><td>₹85,400</td><td>64.2%</td><td>1.10%</td><td><span class="st g">Stable</span></td></tr>
+            <tr><td>Manappuram Fin</td><td>₹21,100</td><td>65.8%</td><td>1.70%</td><td><span class="st b">Moderate</span></td></tr>
+            <tr><td>Shriram Fin</td><td>₹5,900</td><td>73.4%</td><td>2.10%</td><td><span class="st a">Watch</span></td></tr>
+            <tr><td>Bajaj Finance Gold</td><td>₹3,240</td><td>60.2%</td><td>0.85%</td><td><span class="st g">Optimal</span></td></tr></table>
+          <div class="tiles3">
+            <div class="tile"><div class="l">ANNUAL EV FINANCE</div><div class="n">682,500</div><div class="s">units financed via NBFCs</div></div>
+            <div class="tile"><div class="l">DELINQUENCY 90D+</div><div class="n">0.42%</div><div class="s">best-in-class digital servicing</div></div>
+            <div class="tile"><div class="l">COMMERCIAL CONVERSION</div><div class="n">3.8%</div><div class="s">EV 3W cargo segment growth</div></div>
+          </div>
+          <div class="art branch" style="min-height:130px"><div class="cap"><b>99.1% On-Time Collection Rate in Pilot Clusters</b><span>Field officers across Tier-2/3 Kerala branches · demo image</span></div></div>
+          <div class="bl" style="font:600 10px var(--mono);color:var(--mute);margin:14px 0 4px">⧉ Institutional Source References (1 – 42) · 18 citations linked · Fact-check pending on 3 developing items</div>
+          <div class="refs">
+            <div class="ref"><b>1 · RBI DoR/2024-25/78 — Master Direction on NBFC Gold Loan Caps</b><span>Issued: Jun 2024 · rbi.org.in</span></div>
+            <div class="ref"><b>2 · SEBI ICDR/DRHP/ARCIL-CRIP/2026 — Draft Red Herring Prospectus</b><span>Filed: Aug 2026 · sebi.gov.in</span></div>
+            <div class="ref"><b>3 · MCX Gold Spot: 999 1kg Intraday Tick Ledger (Mumbai)</b><span>Sep 2026 · mcxindia.com</span></div>
+            <div class="ref"><b>4 · CRISIL Ratings NBFC Credit Health Monitor Q2 FY26</b><span>Aug 2026 · crisilratings.com</span></div>
+          </div>
+          <div class="sheetbtns"><button class="cta" style="width:auto;padding:12px 22px" data-toast="Saved to Strategic Dossier">⤓ Save to Strategic Dossier</button><button class="cta ghost" style="width:auto;padding:12px 22px" data-toast="Forward link copied">Internal Forward</button></div>
+        </div>
+      </article>
+      <div class="nextdesk"><span class="logo" style="width:30px;height:30px;font-size:14px">◈</span><div><div style="font:600 9px var(--mono);color:var(--mute)">NEXT DESK BRIEFING · 08:15 AM RULES / Regulation</div><b>Desk 02. Rules &amp; Regulation — Non-Banking Liquidity Buffers</b></div><span style="margin-left:auto;font:600 10px var(--mono);color:var(--brand)">Proceed to Desk →</span></div>
+    </div>
+    <aside class="rail">
+      <div class="card"><h4>◉ Market Pulse · 07:15 IST</h4><div class="big">₹78,420 <small style="font-size:11px;color:var(--mute)">MCX Gold Morning</small></div><div class="big" style="margin-top:6px">₹92,150 <small style="font-size:11px;color:var(--mute)">24K / 10g Delhi</small></div></div>
+      <div class="card"><h4>MD Executive Note</h4><p style="font-size:12px;color:var(--body);line-height:1.6">Hold the 68.4% safe-band into the festive quarter; re-price incremental CP only after VRRR cut-offs. (demo note)</p></div>
+      <div class="card"><h4>HO Treasury Coverage</h4><p style="font-size:12px;color:var(--body);line-height:1.6">Call-money 6.78% · CP stable · ALM mismatch NIL.</p></div>
+    </aside>
+  </div>
+</div></section>
+
+<!-- ══════ ARCHIVE ══════ -->
+<section class="view" id="view-archive"><div class="wrap">
+  <div class="repohead">
+    <div class="rt"><div class="logo" style="width:40px;height:40px;font-size:19px">▤</div>
+      <div><h2>Institutional Repository <span style="font:500 9px var(--mono);color:var(--mute)">HO KANNUR… ARCHIVE</span></h2>
+      <p>Archived strategic dispatches, regulatory advisories, and collateral metrics for Achu (Executive VP Desk).</p></div>
+      <span style="margin-left:auto;font:500 10px var(--mono);color:var(--good)">● Index Sync: Live v4.82.0</span></div>
+    <div class="qrow"><div class="qin">⌕<input id="q" value="Gold LTV RBI" /><span style="font:600 10px var(--mono);color:var(--faint)">⌘K</span></div><button class="qbtn" data-toast="Intel query runs against the archive index in the full build">Query Intel →</button></div>
+    <div class="fchips" id="chips"><button class="on" data-f="all">◈ All Desks</button><button data-f="news">● News / Daily Watch</button><button data-f="rules">● Rules / Regulation</button><button data-f="weekly">● Weekly Analysis</button><button data-f="gold">#Gold Loans</button><button data-f="rbi">#RBI Circulars</button></div>
+  </div>
+  <div class="archgrid">
+    <div>
+      <div class="cal"><h4>📅 September 2026</h4>
+        <div class="days"><div class="d"><small>M</small>31</div><div class="d"><small>T</small>01</div><div class="d"><small>W</small>02</div><div class="d"><small>T</small>03</div><div class="d sel"><small>F</small>04</div></div>
+        <div class="lg">● Daily Dispatch &nbsp; ● Regulatory &nbsp; ● Weekly Dossier</div>
+        <div class="sla"><div class="ring"></div><div><b>SLA Delivery Rate</b><br /><span>141 of 152 editions logged on time</span></div></div>
+      </div>
+      <div class="cal" style="margin-top:12px"><h4>≫ High-Impact</h4>
+        <div class="lg">LTV Cap 75% · <b>42</b><br />Cash Disbursement Limit · 29<br />Cost of Funds · 18<br />Auction Surplus Escrow · 11<br />Gold Purity Standardization · 7</div>
+        <div class="sla"><div><b>HEAD OFFICE PORTFOLIO PULSE</b><br /><span style="font:700 20px var(--sans);color:var(--ink)">₹38,420 Cr</span><br /><span>+14.2% YoY · LTV steady at 66.8%</span></div></div>
+      </div>
+    </div>
+    <div id="dayList">
+      <div class="doc" data-tags="rules rbi gold"><div class="doc-top"><span class="pilltag amber">RULES &amp; REGULATION</span><span class="t">Friday, 4 Sep 2026 · 07:15 AM IST</span><span class="pilltag red">Critical Compliance</span><span style="margin-left:auto">🔖</span></div>
+        <h3>RBI Advisory on NBFC Collateral Re-valuation: Stricter Daily 30-Day Moving Average for Gold Loan LTV Guidelines</h3>
+        <p class="abs">…The Department of Supervision has advised all deposit-taking and systemically important NBFCs to re-align their internal valuation models. Head Office branch audits must enforce that <b>gold loan LTV guidelines</b> incorporate a rolling 30-day spot average rather than single-day closing price surges…</p>
+        <div class="kv" style="grid-template-columns:repeat(3,1fr)"><div class="k"><div class="l">LTV Statutory Ceiling</div><div class="n">75.0% Cap</div></div><div class="k"><div class="l">Branch Exposure Buffer</div><div class="n">₹10 Lakh+</div></div><div class="k"><div class="l">Implementation Lead</div><div class="n">T+7 Working Days</div></div></div>
+        <div class="doc-ft"><span>Read time: 4 mins · 4 Data Tables</span><button class="go open-article">Read Full Edition →</button></div></div>
+      <div class="doc" data-tags="news gold"><div class="doc-top"><span class="pilltag blue">DAILY WATCH / NEWS</span><span class="t">Wednesday, 2 Sep 2026 · 07:35 AM IST</span><span class="pilltag blue">Collateral Valuation</span><span style="margin-left:auto">🔖</span></div>
+        <h3>Gold Spot Crosses ₹74,500/10g; Southern Collateral Buffer Reaches 3-Year High</h3>
+        <p class="abs">…Bullion appreciation has widened safety margins for legacy accounts originated during Q3 FY25. HO risk committee notes that adherence to conservative <b>gold loan LTV guidelines</b> has kept auction surplus accounts within 1.1% of gross asset base…</p>
+        <div class="doc-ft"><span>Read time: 5 mins · Commodity Charts Included</span><button class="go open-article">Read Full Edition →</button></div></div>
+      <div class="doc err" data-tags="rules rbi"><div class="doc-top"><span class="pilltag red">● RULES Desk Ingestion Pipeline Interrupted</span><span class="pilltag red" style="margin-left:auto">ERR_API_504</span></div>
+        <h3 style="font-size:18px">RULES Desk: Gateway Timeout (08:15 AM)</h3>
+        <p class="abs">Failed to parse RBI Notification RSS feed (Gazette Notifications Node). Automated fallback to cached 06:00 AM dispatch table.</p>
+        <div class="logbox">MUTHOOT-INGESTION-WORKER #09        TIMED_OUT: 3000ms
+GET [FAILED] https://rbi.org.in/Scripts/BS_PressReleaseDisplay.aspx
+-> Fallback trigger: Serving immutable archive revision r20260904-A</div>
+        <div class="doc-ft"><button class="retry" data-toast="Retry queued — in the full build this re-runs the 08:15 job">⟳ Retry Ingestion Pipeline</button><button class="btnline" data-toast="Worker logs open in the full build">▤ Worker Logs</button><span style="margin-left:auto">Last ping retry: 42 seconds ago</span></div></div>
+      <div class="doc" data-tags="weekly"><div class="doc-top"><span class="pilltag blue">WEEKLY ANALYSIS</span><span class="t">Friday, 28 Aug 2026 · 08:00 AM IST</span><span class="pilltag amber" style="margin-left:auto">Paused</span></div>
+        <h3>Stress-Testing Muthoot Fincorp Net Interest Margins Under Simulated 15% Bullion Drops</h3>
+        <p class="abs">…Scenario matrix testing reveals that under strict compliance with current internal <b>gold loan LTV guidelines</b> and swift margin-call automation, portfolio loss-given-default (LGD) remains below 0.18% even in catastrophic commodity retracements…</p>
+        <div class="doc-ft"><span>Weekly Analysis Desk · Mondays Only · Next release in 3d 18h</span><button class="go" data-toast="Reminder set for Monday 06:00">View Past Monday Editions</button></div></div>
+      <div class="doc" data-tags="news"><div class="doc-top" style="font-size:11px">⧉ Executive HO Compliance Compendium <span class="t">Certified quarterly compendiums for statutory audit</span><span style="margin-left:auto"><button class="btnline" data-toast="Print view ships with the full build">⎙ Print Dispatch Summary</button> <button class="qbtn" style="padding:10px 18px" data-toast="Export ships with the full build">⤓ Export Matched Records (ZIP / PDF)</button></span></div></div>
+    </div>
+  </div>
+  <footer><div class="wrap" style="padding:0"><span><b>The Briefing • Muthoot Fincorp Executive HO</b><br />Strictly Confidential • Private Portfolio &amp; Strategic Operations Briefing</span><span>© 2026 Muthoot Pappachan Group. All strategic rights reserved.</span></div></footer>
+</div></section>
+
+<nav class="bnav">
+  <button data-view="today" aria-current="true">▦<br />Today</button>
+  <button data-view="article" aria-current="false">◨<br />Article</button>
+  <button data-view="archive" aria-current="false">▤<br />Archive</button>
+</nav>
+<div class="snack" id="snack"></div>
+
+<script>
+// waveform bars
+document.querySelectorAll('.wave').forEach(w=>{for(let i=0;i<42;i++){const b=document.createElement('i');
+  b.style.height=(4+Math.round(Math.random()*20))+'px';w.appendChild(b);}});
+// router
+function goto(v){document.querySelectorAll('.view').forEach(s=>s.classList.remove('on'));
+  document.getElementById('view-'+v).classList.add('on');
+  document.querySelectorAll('[data-view]').forEach(b=>b.setAttribute('aria-current',b.dataset.view===v?'true':'false'));
+  window.scrollTo({top:0,behavior:'smooth'});}
+document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>goto(b.dataset.view)));
+document.querySelectorAll('[data-goto]').forEach(b=>b.addEventListener('click',()=>goto(b.dataset.goto)));
+document.querySelectorAll('.open-article').forEach(b=>b.addEventListener('click',()=>goto('article')));
+// AM/PM
+const am=document.getElementById('amBtn'),pm=document.getElementById('pmBtn');
+function setMode(e){document.body.classList.toggle('evening',e);am.classList.toggle('on',!e);pm.classList.toggle('on',e);}
+am.addEventListener('click',()=>setMode(false));pm.addEventListener('click',()=>setMode(true));
+// scan read states
+const cards=[...document.querySelectorAll('.scan')],rc=document.getElementById('readCount');
+cards.forEach(c=>c.addEventListener('click',()=>{c.classList.toggle('read');
+  rc.textContent='Priority 1A · Required Reading · '+document.querySelectorAll('.scan.read').length+'/3 read';}));
+// fake players
+const spdVals=['1x','1.25x','1.5x','2x'];
+document.querySelectorAll('[data-spd]').forEach(b=>{let i=2;b.addEventListener('click',()=>{i=(i+1)%4;b.textContent=spdVals[i];});});
+document.querySelectorAll('[data-trx]').forEach(b=>b.addEventListener('click',()=>
+  document.getElementById(b.dataset.trx).classList.toggle('on')));
+const prog={'a1':[194,705],'a2':[74,252]};
+document.querySelectorAll('[data-play]').forEach(b=>b.addEventListener('click',()=>{
+  const k=b.dataset.play;const on=b.textContent==='▶';b.textContent=on?'⏸':'▶';
+  if(on){b._t=setInterval(()=>{prog[k][0]=Math.min(prog[k][1],prog[k][0]+1);
+    const el=document.getElementById('t-'+k);
+    if(el)el.textContent=String(Math.floor(prog[k][0]/60)).padStart(2,'0')+':'+String(prog[k][0]%60).padStart(2,'0');
+    if(prog[k][0]>=prog[k][1]){clearInterval(b._t);b.textContent='▶';}},1000);}
+  else clearInterval(b._t);}));
+// archive search + chips
+const q=document.getElementById('q');let f='all';
+function filt(){const term=(q.value||'').toLowerCase();
+  document.querySelectorAll('#dayList .doc[data-tags]').forEach(r=>{
+    const okF=f==='all'||(r.dataset.tags||'').includes(f);
+    const okQ=!term||r.textContent.toLowerCase().includes(term);
+    r.style.display=okF&&okQ?'block':'none';});}
+q.addEventListener('input',filt);
+document.querySelectorAll('#chips button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('#chips button').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');f=b.dataset.f;filt();}));
+filt();
+// snackbar
+const snack=document.getElementById('snack');let st=null;
+function toast(m){snack.textContent=m;snack.classList.add('on');clearTimeout(st);
+  st=setTimeout(()=>snack.classList.remove('on'),2300);}
+document.querySelectorAll('[data-toast]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();toast(a.dataset.toast);}));
+</script>
+</body>
+</html>

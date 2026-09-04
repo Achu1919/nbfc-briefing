@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Briefing — Friday, 4 September 2026 (design demo)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --paper:#f3edde; --sheet:#faf6ec; --card:#f8f3e6;
+    --ink:#1a1512; --body:#3d362e; --mute:#7a6e5f; --faint:#a89a85;
+    --hair:#d9cdb2; --hair-dark:#2c2620;
+    --rule:#8f1d1d; --rule-soft:rgba(143,29,29,.12);
+    --gold:#9a6f14;
+    --good:#1e7a3c;
+    --nav-bg:rgba(250,246,236,.82);
+    --shadow:0 1px 0 rgba(26,21,18,.06), 0 12px 32px -18px rgba(26,21,18,.35);
+    --serif:"Fraunces",Georgia,"Times New Roman",serif;
+    --read:"Newsreader",Georgia,serif;
+    --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  }
+  body.evening{
+    --paper:#14110d; --sheet:#1e1a15; --card:#221d16;
+    --ink:#f0e8d8; --body:#cfc4b0; --mute:#9a8d78; --faint:#6b6152;
+    --hair:#3a332a; --hair-dark:#e8ddc6;
+    --rule:#e0705f; --rule-soft:rgba(224,112,95,.14);
+    --gold:#d9a93f; --good:#5fce8a;
+    --nav-bg:rgba(20,17,13,.78);
+    --shadow:0 1px 0 rgba(0,0,0,.4), 0 14px 34px -18px rgba(0,0,0,.8);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);
+    -webkit-font-smoothing:antialiased;transition:background .25s ease,color .25s ease}
+  .mono{font-family:var(--mono)}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+
+  /* ── top micro bar ─────────────────────────── */
+  .topbar{border-bottom:1px solid var(--hair)}
+  .topbar .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;
+    padding-top:8px;padding-bottom:8px}
+  .topbar p{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--mute)}
+  .topbar-right{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:10px;
+    letter-spacing:.1em;color:var(--mute)}
+  .ampm{display:flex;border:1px solid var(--hair);border-radius:980px;overflow:hidden}
+  .ampm button{border:0;background:transparent;color:var(--mute);font:600 10px var(--mono);
+    padding:5px 10px;cursor:pointer;letter-spacing:.08em}
+  .ampm button.on{background:var(--ink);color:var(--paper)}
+  .avatar{width:22px;height:22px;border-radius:50%;background:var(--ink);color:var(--paper);
+    display:inline-flex;align-items:center;justify-content:center;font:600 10px var(--sans)}
+
+  /* ── masthead ──────────────────────────────── */
+  .mast{padding:26px 0 0}
+  .mast-eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:var(--mute)}
+  .mast-row{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap}
+  h1.wordmark{font-family:var(--serif);font-weight:600;letter-spacing:-.02em;
+    font-size:clamp(52px,8.5vw,104px);line-height:.95}
+  .mast-date{text-align:right;padding-bottom:10px}
+  .mast-date .d{font-family:var(--serif);font-size:22px}
+  .mast-date .e{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--rule);margin-top:6px}
+  .mast-date .e a{color:inherit}
+  .edition{border-top:3px double var(--ink);margin-top:14px;padding:8px 0;
+    display:flex;justify-content:space-between;gap:10px;
+    font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--mute)}
+
+  /* ── sticky glass nav ──────────────────────── */
+  .nav{position:sticky;top:0;z-index:50;background:var(--nav-bg);
+    backdrop-filter:saturate(160%) blur(18px);-webkit-backdrop-filter:saturate(160%) blur(18px);
+    border-bottom:1px solid var(--hair)}
+  .nav .wrap{display:flex;justify-content:space-between;align-items:center}
+  .tabs{display:flex;gap:26px}
+  .tabs button{background:none;border:0;border-bottom:2px solid transparent;cursor:pointer;
+    font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--mute);
+    padding:14px 0 12px}
+  .tabs button[aria-current="true"]{color:var(--ink);border-bottom-color:var(--rule)}
+  .nav-note{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--mute)}
+
+  /* ── views ─────────────────────────────────── */
+  .view{display:none}
+  .view.on{display:block}
+
+  /* ── ticker ────────────────────────────────── */
+  .ticker{display:grid;grid-template-columns:repeat(5,1fr);border-bottom:1px solid var(--hair)}
+  .tick{padding:12px 18px 12px 0}
+  .tick+.tick{padding-left:18px;border-left:1px solid var(--hair)}
+  .tick .l{font-family:var(--mono);font-size:9px;letter-spacing:.16em;color:var(--mute)}
+  .tick .v{font-family:var(--mono);font-size:14px;font-weight:600;margin-top:4px;white-space:nowrap}
+  .tick .d{font-family:var(--mono);font-size:10px;margin-top:2px}
+  .up{color:var(--good)} .down{color:var(--rule)}
+  .chip{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.1em;
+    border:1px solid var(--hair);border-radius:4px;padding:1px 6px;color:var(--mute);vertical-align:2px}
+
+  /* ── section headers ───────────────────────── */
+  .sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;
+    border-top:1px solid var(--ink);border-bottom:1px solid var(--hair);
+    margin:34px 0 20px;padding:10px 0;font-family:var(--mono);font-size:10px;letter-spacing:.16em}
+  .sec-head .r{color:var(--mute);letter-spacing:.1em}
+  .sec-head em{font-family:var(--read);font-size:14px;letter-spacing:0;color:var(--mute);
+    text-transform:none}
+
+  /* ── scan cards ────────────────────────────── */
+  .scan{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--hair);
+    background:var(--sheet);box-shadow:var(--shadow)}
+  .scan-card{padding:22px 22px 18px;cursor:pointer;transition:background .15s ease;position:relative}
+  .scan-card+.scan-card{border-left:1px solid var(--hair)}
+  .scan-card:hover{background:var(--card)}
+  .scan-card.read::after{content:"READ ✓";position:absolute;top:20px;right:20px;
+    font-family:var(--mono);font-size:9px;letter-spacing:.14em;color:var(--good)}
+  .scan-card.read{opacity:.62}
+  .krow{display:flex;justify-content:space-between;font-family:var(--mono);font-size:9px;
+    letter-spacing:.14em;color:var(--rule);margin-bottom:10px}
+  .krow .r{color:var(--faint)}
+  .scan-card h3{font-family:var(--serif);font-weight:600;font-size:24px;line-height:1.1;
+    letter-spacing:-.01em;margin-bottom:10px}
+  .scan-card p{font-family:var(--read);font-size:16px;line-height:1.5;color:var(--body)}
+  .scan-foot{display:flex;justify-content:space-between;margin-top:16px;padding-top:12px;
+    border-top:1px solid var(--hair);font-family:var(--mono);font-size:9px;letter-spacing:.12em}
+  .scan-foot .tag{color:var(--rule)} .scan-foot a{color:var(--ink)}
+
+  /* ── desks ─────────────────────────────────── */
+  .desks{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .desk{border:1px solid var(--hair);background:var(--sheet);padding:26px;box-shadow:var(--shadow);
+    display:flex;flex-direction:column}
+  .desk-top{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;
+    letter-spacing:.14em;color:var(--mute);margin-bottom:14px}
+  .ready{color:var(--good)}
+  .desk .q{font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--mute);margin-bottom:6px}
+  .desk h2{font-family:var(--serif);font-weight:500;font-size:30px;line-height:1.12;
+    letter-spacing:-.01em;margin-bottom:10px}
+  .desk .sub{font-family:var(--read);font-size:16px;color:var(--body);line-height:1.5;margin-bottom:16px}
+  .aud-strip{border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);
+    padding:10px 0;margin-bottom:16px;font-family:var(--mono);font-size:10px;letter-spacing:.1em}
+  .aud-strip b{color:var(--rule)}
+  .lens{border:1px solid var(--hair);padding:14px 16px;margin-bottom:16px;background:var(--card)}
+  .lens .t{font-family:var(--mono);font-size:9px;letter-spacing:.16em;color:var(--mute);
+    display:flex;justify-content:space-between;margin-bottom:10px}
+  .lens-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .lens-grid .l{font-family:var(--mono);font-size:9px;letter-spacing:.12em;color:var(--mute)}
+  .lens-grid .n{font-family:var(--mono);font-size:22px;font-weight:600}
+  .lens-grid .s{font-family:var(--mono);font-size:9px;color:var(--good)}
+  .topics{font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:var(--body);
+    line-height:2;margin-bottom:18px}
+  .topics .h{font-size:9px;letter-spacing:.16em;color:var(--mute)}
+  .topics li{list-style:none;border-bottom:1px dotted var(--hair)}
+  .desk-foot{margin-top:auto;display:flex;justify-content:space-between;align-items:center;
+    font-family:var(--mono);font-size:10px;letter-spacing:.12em}
+  .btn{background:var(--ink);color:var(--paper);border:0;font-family:var(--mono);font-size:11px;
+    letter-spacing:.12em;padding:13px 20px;cursor:pointer;transition:transform .1s ease,opacity .15s}
+  .btn:hover{opacity:.88} .btn:active{transform:scale(.97)}
+  .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--ink)}
+  .note-box{border-left:3px solid var(--rule);background:var(--rule-soft);padding:12px 14px;
+    font-family:var(--read);font-size:15px;line-height:1.5;margin-bottom:16px}
+  .desk-wide{grid-column:1/-1;display:flex;justify-content:space-between;gap:16px;align-items:center;
+    border:1px solid var(--hair);background:var(--sheet);padding:20px 26px;box-shadow:var(--shadow)}
+  .desk-wide h2{font-size:22px;margin-bottom:6px}
+  .tminus{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--mute);
+    text-align:right;white-space:nowrap}
+
+  /* ── audio + vault ─────────────────────────── */
+  .duo{display:grid;grid-template-columns:1.2fr 1fr;gap:22px;margin-bottom:10px}
+  .panel h2{font-family:var(--serif);font-size:30px;font-weight:500;margin:2px 0 6px}
+  .panel .dek{font-family:var(--read);font-style:italic;color:var(--mute);margin-bottom:16px}
+  .player{border:1px solid var(--hair);background:var(--sheet);padding:16px;box-shadow:var(--shadow)}
+  .player-row{display:flex;align-items:center;gap:12px}
+  .play{width:38px;height:38px;border-radius:8px;border:0;background:var(--ink);color:var(--paper);
+    font-size:14px;cursor:pointer;flex:none}
+  .p-title{font-family:var(--mono);font-size:11px;font-weight:600}
+  .p-time{font-family:var(--mono);font-size:10px;color:var(--mute);margin-top:2px}
+  .p-speed{margin-left:auto;border:1px solid var(--hair);background:transparent;color:var(--ink);
+    font-family:var(--mono);font-size:10px;border-radius:6px;padding:6px 8px;cursor:pointer;flex:none}
+  .bar{height:3px;background:var(--hair);margin:12px 0 8px;border-radius:2px;overflow:hidden}
+  .bar i{display:block;height:100%;width:27%;background:var(--rule)}
+  .p-link{font-family:var(--mono);font-size:10px;color:var(--mute);letter-spacing:.06em;
+    background:none;border:0;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+  .transcript{display:none;font-family:var(--read);font-style:italic;font-size:15px;color:var(--body);
+    border-top:1px dotted var(--hair);margin-top:10px;padding-top:10px;line-height:1.6}
+  .transcript.on{display:block}
+  .p-foot{display:flex;justify-content:space-between;margin-top:14px;font-family:var(--mono);
+    font-size:9px;letter-spacing:.1em;color:var(--mute)}
+  .vault{border:1px solid var(--hair);background:var(--sheet);padding:22px;box-shadow:var(--shadow)}
+  .vault .t{font-family:var(--mono);font-size:9px;letter-spacing:.16em;color:var(--mute);
+    display:flex;justify-content:space-between;margin-bottom:8px}
+  .vault h3{font-family:var(--serif);font-size:22px;font-weight:600;margin-bottom:8px}
+  .vault p{font-family:var(--read);font-size:15px;line-height:1.55;color:var(--body);margin-bottom:14px}
+  .vault-art{border:1px solid var(--hair);height:150px;border-radius:4px;overflow:hidden;
+    background:linear-gradient(180deg,#20242c 0%,#2c313b 45%,#3d3a2c 45.5%,#151310 46%,#241f16 100%);
+    position:relative}
+  .vault-art .shelf{position:absolute;left:6%;right:6%;height:26px;top:22px;
+    background:repeating-linear-gradient(90deg,#c9972f 0 14px,#8a6415 14px 17px);
+    box-shadow:0 2px 0 #0c0a07,0 34px 0 -2px #4a4438,0 36px 0 -2px #0c0a07,0 62px 0 -4px #c9972f,0 64px 0 -4px #0c0a07;opacity:.9}
+  .vault-art .glow{position:absolute;top:8px;right:10px;width:70px;height:70px;border-radius:50%;
+    background:radial-gradient(circle,rgba(120,180,255,.5),transparent 70%)}
+  .vault-cap{display:flex;justify-content:space-between;font-family:var(--mono);font-size:9px;
+    letter-spacing:.12em;color:var(--mute);margin-top:8px}
+  .vault-cap b{color:var(--ink)}
+  footer{border-top:1px solid var(--ink);margin-top:44px;padding:18px 0 90px}
+  footer .wrap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;
+    font-family:var(--mono);font-size:9px;letter-spacing:.12em;color:var(--mute)}
+  footer .b{font-family:var(--serif);font-size:16px;color:var(--ink);letter-spacing:0}
+
+  /* ── mobile-only blocks ────────────────────── */
+  .m-hero,.m-pulse{display:none}
+
+  /* ── article view ──────────────────────────── */
+  .sheet{max-width:780px;margin:0 auto;background:var(--sheet);border:1px solid var(--hair);
+    box-shadow:var(--shadow);padding:52px 60px 64px;margin-top:26px;margin-bottom:20px}
+  .sheet .dept{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--rule);margin-bottom:12px}
+  .sheet h1{font-family:var(--serif);font-weight:500;font-size:clamp(34px,5vw,54px);
+    line-height:1.04;letter-spacing:-.02em;margin-bottom:12px}
+  .sheet .byline{font-family:var(--mono);font-size:11px;color:var(--mute);margin-bottom:22px}
+  .sheet .lede{font-family:var(--read);font-style:italic;font-size:22px;line-height:1.4;margin-bottom:26px}
+  .sheet .md{font-family:var(--read);font-size:19px;line-height:1.65;color:var(--body)}
+  .sheet .md h2{font-family:var(--serif);font-size:26px;margin:30px 0 10px;color:var(--ink)}
+  .sheet .md p{margin-bottom:14px}
+  .sheet .md ul{margin:0 0 14px 1.2em} .sheet .md li{margin-bottom:6px}
+  .sheet .md ol.src{font-family:var(--mono);font-size:12px;margin-left:1.4em;line-height:2}
+  .sheet .md a{color:var(--rule)}
+  .sheet-nav{display:flex;justify-content:space-between;max-width:780px;margin:0 auto 60px;gap:10px}
+
+  /* ── archive view ──────────────────────────── */
+  .arch{max-width:780px;margin:26px auto 60px}
+  .searchbar{display:flex;gap:8px;margin-bottom:12px}
+  .searchbar input{flex:1;border:1px solid var(--hair);background:var(--sheet);color:var(--ink);
+    font-family:var(--mono);font-size:13px;padding:13px 16px;border-radius:980px;outline:none}
+  .searchbar input:focus{border-color:var(--rule)}
+  .fchips{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+  .fchips button{border:1px solid var(--hair);background:transparent;color:var(--mute);
+    font-family:var(--mono);font-size:11px;letter-spacing:.08em;border-radius:980px;
+    padding:8px 16px;cursor:pointer}
+  .fchips button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .day-row{display:flex;gap:14px;align-items:flex-start;border:1px solid var(--hair);
+    background:var(--sheet);padding:16px 18px;margin-bottom:10px;cursor:pointer}
+  .day-row:hover{background:var(--card)}
+  .dots{display:flex;gap:5px;padding-top:5px}
+  .dot{width:9px;height:9px;border-radius:50%;background:var(--good)}
+  .dot.miss{background:var(--rule)} .dot.na{background:transparent;border:1px solid var(--faint)}
+  .day-row .t{font-family:var(--serif);font-size:19px}
+  .day-row .s{font-family:var(--mono);font-size:10px;color:var(--mute);letter-spacing:.06em;margin-top:3px}
+
+  /* ── snackbar + bottom nav ─────────────────── */
+  .snack{position:fixed;left:50%;bottom:96px;transform:translateX(-50%) translateY(20px);
+    background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:12px;
+    padding:12px 22px;border-radius:10px;opacity:0;pointer-events:none;transition:all .25s;z-index:99}
+  .snack.on{opacity:1;transform:translateX(-50%) translateY(0)}
+  .bnav{display:none}
+
+  /* ── responsive ────────────────────────────── */
+  @media(max-width:960px){
+    .ticker{grid-template-columns:repeat(3,1fr)}
+    .tick:nth-child(4){border-left:0;padding-left:0}
+    .scan{grid-template-columns:1fr;overflow-x:auto;scroll-snap-type:x mandatory;
+      display:flex}
+    .scan-card{min-width:82%;scroll-snap-align:center}
+    .scan-card+.scan-card{border-left:1px solid var(--hair);border-top:0}
+    .desks,.duo{grid-template-columns:1fr}
+    .desk-wide{flex-direction:column;align-items:flex-start}
+    .tminus{text-align:left}
+  }
+  @media(max-width:720px){
+    .wrap{padding:0 16px}
+    .nav-note,.topbar p.hide-m{display:none}
+    .tabs{gap:18px}
+    h1.wordmark{font-size:52px}
+    .mast-date{text-align:left}
+    .m-hero{display:block;padding:18px 0 4px}
+    .m-hero .k{font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--rule)}
+    .m-hero h2{font-family:var(--serif);font-size:38px;line-height:1.02;letter-spacing:-.02em;
+      margin:8px 0 12px}
+    .daypills{display:flex;gap:8px;font-family:var(--mono);font-size:10px;margin-bottom:6px}
+    .daypills span{border-bottom:2px solid transparent;padding:6px 2px;color:var(--mute)}
+    .daypills .now{color:var(--ink);border-bottom-color:var(--rule);font-weight:600}
+    .daypills .lock{border:1px solid var(--hair);border-radius:4px;padding:5px 8px}
+    .m-pulse{display:block;border:1px solid var(--hair);background:var(--sheet);margin:12px 0 4px}
+    .m-pulse .ph{display:flex;justify-content:space-between;font-family:var(--mono);font-size:9px;
+      letter-spacing:.14em;padding:10px 14px;border-bottom:1px solid var(--hair);color:var(--mute)}
+    .m-pulse .pg{display:grid;grid-template-columns:1fr 1fr}
+    .m-pulse .pc{padding:12px 14px;font-family:var(--mono)}
+    .m-pulse .pc:nth-child(odd){border-right:1px solid var(--hair)}
+    .m-pulse .pc:nth-child(n+3){border-top:1px solid var(--hair)}
+    .m-pulse .pc.full{grid-column:1/-1}
+    .m-pulse .l{font-size:9px;letter-spacing:.1em;color:var(--mute)}
+    .m-pulse .v{font-size:17px;font-weight:600;margin:4px 0}
+    .m-pulse .v small{font-size:11px;font-weight:400;color:var(--mute)}
+    .m-pulse .s{font-size:10px}
+    .sheet{padding:30px 22px 48px}
+    .bnav{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:60;
+      background:var(--nav-bg);backdrop-filter:saturate(160%) blur(18px);
+      -webkit-backdrop-filter:saturate(160%) blur(18px);border-top:1px solid var(--hair)}
+    .bnav button{flex:1;background:none;border:0;padding:10px 0 12px;color:var(--mute);
+      font-family:var(--mono);font-size:9px;letter-spacing:.14em;cursor:pointer}
+    .bnav button .i{display:block;font-size:17px;margin-bottom:2px;font-family:var(--sans)}
+    .bnav button[aria-current="true"]{color:var(--ink)}
+    footer{padding-bottom:120px}
+  }
+  @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="wrap">
+  <p>VOL. XIV · NO. 248 · MUTHOOT FINCORP HO · EXECUTIVE FP&amp;A · <span class="hide-m">CONFIDENTIAL INTERNAL MEMORANDUM</span></p>
+  <div class="topbar-right"><span>SYNCED 08:30 IST</span>
+    <span class="ampm"><button id="amBtn" class="on">AM</button><button id="pmBtn">PM</button></span>
+    <span class="avatar">A</span><span class="hide-m">achu.ho</span>
+  </div>
+</div></div>
+
+<header class="mast"><div class="wrap">
+  <div class="mast-eyebrow">MUTHOOT FINANCIAL CENTRE — CENTRAL STRATEGY &amp; RISK DESK</div>
+  <div class="mast-row">
+    <h1 class="wordmark">THE BRIEFING</h1>
+    <div class="mast-date"><div class="d">Friday, September 4, 2026</div>
+      <div class="e">● EDITION 1,842 · ACTIVE DESK &nbsp;|&nbsp; <a href="#" id="dossierLink">Download Dossier (PDF)</a></div></div>
+  </div>
+  <div class="edition"><span>TODAY / DESKS · ARTICLE READING · REGULATORY ARCHIVE · LTV RISK BENCHMARKS</span>
+    <span class="hide-m">READ DISPATCH: 2 OF 3 DESKS CLEARED FOR RELEASE</span></div>
+</div></header>
+
+<nav class="nav"><div class="wrap">
+  <div class="tabs">
+    <button data-view="today" aria-current="true">TODAY / DESKS</button>
+    <button data-view="article" aria-current="false">ARTICLE READING</button>
+    <button data-view="archive" aria-current="false">REGULATORY ARCHIVE</button>
+  </div>
+  <div class="nav-note hide-m">READ DISPATCH: 2 OF 3 DESKS CLEARED</div>
+</div></nav>
+
+<!-- ══════════ TODAY ══════════ -->
+<section class="view on" id="view-today"><div class="wrap">
+
+  <div class="m-hero">
+    <div class="k">EXECUTIVE MORNING INTELLIGENCE · PDF DOSSIER ↓</div>
+    <h2>Liquidity Signals &amp; Gold Cushion</h2>
+    <div class="daypills"><span>Thu 3 Sep</span><span class="now">● Today 4 Sep</span><span>Mon 7 Sep</span><span class="lock">LOCKED</span></div>
+  </div>
+  <div class="m-pulse">
+    <div class="ph"><span>■ TREASURY PULSE</span><span>08:42 IST · Realtime</span></div>
+    <div class="pg">
+      <div class="pc"><div class="l">MCX Gold 24K <span class="down">−0.35%</span></div><div class="v">₹72,480<small>/10g</small></div><div class="s">Buffer: +668 bps (vs ₹68k)</div></div>
+      <div class="pc"><div class="l">Muthoot Fin <span class="up">+1.28%</span></div><div class="v">₹1,942.50</div><div class="s">Sensex: 82,564 (+0.42%)</div></div>
+      <div class="pc full"><div class="l">FII / DII Net Flow</div><div class="v">+₹3,530 Cr <small>Inflow</small></div></div>
+    </div>
+  </div>
+
+  <div class="ticker">
+    <div class="tick"><div class="l">SENSEX</div><div class="v">82,410.50</div><div class="d up">+0.42%</div></div>
+    <div class="tick"><div class="l">NIFTY 50</div><div class="v">25,235.90</div><div class="d up">+0.38%</div></div>
+    <div class="tick"><div class="l">GOLD 24K MCX &nbsp;<span class="chip">LTV +4.2%</span></div><div class="v">₹72,480</div><div class="d down">−0.35%</div></div>
+    <div class="tick"><div class="l">FII / DII FLOWS</div><div class="v">+₹3,530 CR</div><div class="d">NET INFLOW</div></div>
+    <div class="tick"><div class="l">MUTHOOT / MANAPPURAM</div><div class="v" style="font-size:12px">₹3,894.20 (+1.2%) / ₹98.40 (+0.8%)</div></div>
+  </div>
+
+  <div class="sec-head"><span>[ SECTION 01 ] &nbsp;THE 2-MINUTE EXECUTIVE SCAN &nbsp;<em>Mandatory Read for HO Risk &amp; Financial Planning Committee</em></span><span class="r" id="readCount">READ COMPLETION: 0 / 3 ITEMS</span></div>
+  <div class="scan" id="scanRow">
+    <div class="scan-card" tabindex="0">
+      <div class="krow"><span>#01 URGENT · RBI DIRECTIVE</span><span class="r">SIGNAL</span></div>
+      <h3>Gold-Loan LTV Buffer Pressure</h3>
+      <p>RBI desk alert urges non-banks to preserve dynamic liquid cushion beneath standard 75% peak ceiling against global bullion volatility.</p>
+      <div class="scan-foot"><span class="tag">HIGH RISK IMPACT</span><a>Desk Memo 08 →</a></div>
+    </div>
+    <div class="scan-card" tabindex="0">
+      <div class="krow"><span>#02 GOVERNANCE · DRAFT</span><span class="r">CIRCULAR</span></div>
+      <h3>Revolving Credit Rethink</h3>
+      <p>Mandatory 90-day comprehensive delinquency reviews proposed for unsecured personal loan lines; impact on digital credit-line partners under evaluation.</p>
+      <div class="scan-foot"><span class="tag">PORTFOLIO SHIFT</span><a>Rules Review →</a></div>
+    </div>
+    <div class="scan-card" tabindex="0">
+      <div class="krow"><span>#03 CAPITAL MARKETS</span><span class="r">VALUATION</span></div>
+      <h3>ARCIL IPO Filing Valuations</h3>
+      <p>DRHP benchmarks asset reconstruction multiple at 2.4x P/BV, offering immediate premium exit windows for legacy retail stressed loan tranches.</p>
+      <div class="scan-foot"><span class="tag">STRATEGIC EXIT</span><a>Markets Track →</a></div>
+    </div>
+  </div>
+
+  <div class="sec-head"><span>[ SECTION 02 ] &nbsp;OPERATIONAL DESKS · MORNING INTELLIGENCE</span><span class="r">STATUS: ACTIVE DOSSIERS</span></div>
+  <div class="desks">
+    <div class="desk">
+      <div class="desk-top"><span>DESK 01 · NEWS &nbsp;BY JARVIS · 07:00 IST</span><span class="ready">● READY TO READ</span></div>
+      <div class="q">DAILY INQUIRY</div>
+      <h2>"What happened in markets and the financial sector today?"</h2>
+      <p class="sub">Comprehensive scan of banking credit acceleration, RBI liquidity interventions, gold-loan LTV stress and NBFC funding costs.</p>
+      <div class="aud-strip">▷ CURRENT AUDIO DOSSIER &nbsp;·&nbsp; <b>RBI Revolving Credit &amp; Gold LTV Signals (11m 45s)</b></div>
+      <div class="lens"><div class="t"><span>MUTHOOT FP&amp;A IMPACT SUMMARY</span><span>INTERNAL AUDIT DESK</span></div>
+        <div class="lens-grid">
+          <div><div class="l">LTV HEADROOM SAFE-BAND</div><div class="n">68.4%</div><div class="s">↑ 660 bps cushion</div></div>
+          <div><div class="l">INCREMENTAL COST OF FUNDS</div><div class="n">8.42%</div><div class="s" style="color:var(--rule)">↓ 4 bps M-o-M</div></div>
+        </div></div>
+      <ul class="topics"><span class="h">TOPICS ADDRESSED · 8 ALERTS</span>
+        <li>▸ RBI Gold LTV Directives and buffer compliance guidelines</li>
+        <li>▸ ARCIL Draft Red Herring IPO pricing multiples</li>
+        <li>▸ Scheduled commercial bank gold credit expands +13.8% YoY</li>
+        <li>▸ Shriram Finance AAA rating validation and capital cost impacts</li></ul>
+      <div class="desk-foot"><span>EST. READING TIME: 06 MIN</span><button class="btn ghost open-article">OPEN DAILY WATCH →</button></div>
+    </div>
+    <div class="desk">
+      <div class="desk-top"><span>DESK 02 · RULES &nbsp;BY NBFC GURU · 08:15 IST</span><span class="ready">● READY TO READ</span></div>
+      <div class="q">STATUTORY INQUIRY</div>
+      <h2>"What changed in the rulebook?"</h2>
+      <p class="sub">Targeted analysis of RBI Master Direction revision covering priority-sector lending pass-throughs, digital loan underwriting penalties, and fair-lending code compliance.</p>
+      <div class="note-box">Muthoot Fincorp current co-lending books fully adhere to the 20% minimum risk retention rule. No retroactive reserve penalty expected.</div>
+      <ul class="topics"><span class="h">ADVISORY TOPICS · 2 STATUTORY NOTIFICATIONS</span>
+        <li>▸ Co-lending PSL Classification parameters and risk retention</li>
+        <li>▸ Penal interest ceiling mandates under fair practices code</li>
+        <li>▸ Digital KYC circular 2026: Biometric renewal obligations</li></ul>
+      <div class="desk-foot"><span>EST. READING TIME: 04 MIN</span><button class="btn ghost open-article">READ RULES DOSSIER →</button></div>
+    </div>
+    <div class="desk-wide">
+      <div><div class="q">DESK 03 · WEEKLY MACRO &nbsp;/&nbsp; SCHEDULED: MONDAYS AT 07:15 IST</div>
+      <h2>"What did the whole week mean for systemic liquidity?"</h2>
+      <p class="sub">Next scheduled edition arrives on Monday, 7 September 2026. Focus: RBI Variable Rate Reverse Repo (VRRR) auction cut-offs and festive gold deposit flows across Southern branches.</p></div>
+      <div class="tminus">T-MINUS 72 HOURS<br /><br /><button class="btn ghost" data-toast="Archive memo pinned — full run lands Monday 07:15">ARCHIVE MEMO →</button></div>
+    </div>
+  </div>
+
+  <div class="sec-head"><span>AUDIO DISPATCH · RECORDED BRIEFING</span><span class="r hide-m">EDITION #1,842</span></div>
+  <div class="duo">
+    <div class="panel"><h2>Daily Voice Memo</h2><div class="dek">High-fidelity briefing synthesis narrated for executive review.</div>
+      <div class="player">
+        <div class="player-row">
+          <button class="play" id="playBtn" aria-label="Play">▶</button>
+          <div><div class="p-title">Segment: Gold LTV Stress Test &amp; Yield Protection</div>
+            <div class="p-time"><span id="tCur">03:18</span> / 11:45 · Jarvis</div></div>
+          <button class="p-speed" id="spdBtn">1.5x</button>
+        </div>
+        <div class="bar"><i id="pbar"></i></div>
+        <button class="p-link" id="trxBtn">[+] View Verbatim Transcript</button>
+        <div class="transcript" id="trx">"Good morning Achu. Key priority today: RBI's cautionary note on non-bank gold exposures. Hold the 68.4% safe-band, watch auction volumes, and re-price incremental CP only after the VRRR cut-off…" (demo transcript)</div>
+      </div>
+      <div class="p-foot"><span>PREPARED BY CORPORATE STRATEGY · TRIVANDRUM HO</span><span><a href="#" data-toast="Audio reference link copied" style="color:inherit">Share Audio Reference</a></span></div>
+    </div>
+    <div class="vault"><div class="t"><span>COLLATERAL AUDIT</span><span>EDITION #1,842</span></div>
+      <h3>Bullion Vault Reserve Dynamics</h3>
+      <p>Weekly branch audits confirm 99.8% collateral certification rate across 3,600+ physical touchpoints. Regional vaults retain active GPS tracking and automated fire-retardant enclosures.</p>
+      <div class="vault-art"><div class="glow"></div><div class="shelf"></div></div>
+      <div class="vault-cap"><span>PHYSICAL UNDER CUSTODY</span><b>187 METRIC TONNES</b></div>
+      <div class="vault-cap"><span>COLLATERAL HEALTH: TIER-1</span><a href="#" data-toast="Branch LTV matrix opens in the full build" style="color:inherit">Branch LTV Matrix →</a></div>
+    </div>
+  </div>
+
+  <footer><div class="wrap" style="padding:0">
+    <span><span class="b">The Briefing</span> &nbsp;&nbsp; INTERNAL FP&amp;A INTELLIGENCE &nbsp;/&nbsp; MUTHOOT FINCORP LTD.</span>
+    <span>© 2026 MUTHOOT FINCORP LTD. CONFIDENTIAL &amp; PROPRIETARY.</span>
+  </div></footer>
+</div></section>
+
+<!-- ══════════ ARTICLE ══════════ -->
+<section class="view" id="view-article"><div class="wrap">
+  <article class="sheet">
+    <p class="dept">NEWS · DAILY WATCH</p>
+    <h1>News and markets</h1>
+    <p class="byline">Daily Watch · jarvis · 7:00 AM · Friday, 4 September 2026</p>
+    <p class="lede">Morning edition: gold slides for a third straight session, RBI leans toward softening its revolving-credit ban, and ARCIL's landmark IPO opens September 9.</p>
+    <div class="md">
+      <h2>🔴 Urgent / High Impact</h2>
+      <p><strong>Gold is sliding — direct pressure on the gold-loan engine.</strong> International gold fell for a third straight session even as Brent spiked to ~$95–96 on US–Iran strikes. Domestic 24K in Delhi is down ~8% from the late-August peak — LTV headroom shrinks as collateral values fall, so watch top-up growth and auction volumes this quarter.</p>
+      <p><strong>RBI likely to soften its proposed blanket ban on NBFC revolving credit.</strong> After ~350 industry responses, sources say RBI leans toward a partial restriction rather than a blanket ban. Final guidelines expected in ~2 months; supply-chain finance exemption is the industry's biggest ask.</p>
+      <div class="note-box"><strong>Muthoot lens:</strong> with ~99% of the book in gold, hold the 68.4% safe-band LTV and track competitor auction behaviour; revolving-credit changes have low direct impact but watch MSME products.</div>
+      <h2>📈 Market &amp; Stock Summary</h2>
+      <ul><li>Sensex −417 pts to 76,152; Nifty −41 to 23,873 — oil spike + bond yields weighed.</li>
+      <li>FIIs sold ₹2,345 cr; DIIs bought ₹4,977 cr — 18th straight session of net buying.</li>
+      <li>August: FIIs +₹29,631 cr, highest monthly inflow since Sep 2024.</li></ul>
+      <h2>⚠️ Credit Rating Actions</h2>
+      <ul><li>Shriram Finance: ICRA assigned [ICRA]AAA (Stable) to its ₹5,000 cr NCD programme.</li>
+      <li>Aadhar Housing: upgraded to IND AA+/Stable from IND AA/Positive.</li></ul>
+      <h2>🔗 Source Links</h2>
+      <ol class="src"><li><a href="#" onclick="return false">RBI DG Murmu @ CII NBFC &amp; HFC Summit</a></li>
+      <li><a href="#" onclick="return false">Revolving credit rethink (ETBFSI)</a></li>
+      <li><a href="#" onclick="return false">ARCIL IPO + retail stress (PTI)</a></li>
+      <li><a href="#" onclick="return false">MFIN Micrometer Q1FY27</a></li>
+      <li><a href="#" onclick="return false">L&amp;T Finance 500 gold branches/yr</a></li></ol>
+    </div>
+  </article>
+  <div class="sheet-nav">
+    <button class="btn ghost" data-goto="today">← BACK TO DESKS</button>
+    <button class="btn ghost" data-goto="archive">NEXT: RULES DOSSIER →</button>
+  </div>
+</div></section>
+
+<!-- ══════════ ARCHIVE ══════════ -->
+<section class="view" id="view-archive"><div class="wrap">
+  <div class="arch">
+    <div class="sec-head"><span>REGULATORY ARCHIVE · PAST DOSSIERS</span><span class="r">6 EDITIONS</span></div>
+    <div class="searchbar"><input id="q" placeholder="Search headlines and body… (try 'gold' or 'RBI')" /></div>
+    <div class="fchips" id="chips">
+      <button class="on" data-f="all">ALL</button><button data-f="news">NEWS</button>
+      <button data-f="rules">RULES</button><button data-f="weekly">WEEKLY</button>
+    </div>
+    <div id="dayList">
+      <div class="day-row" data-tags="news rules"><div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot na"></span></div>
+        <div><div class="t">Friday, 4 September 2026</div><div class="s">NEWS ✓ · RULES ✓ · WEEKLY monday-only</div></div></div>
+      <div class="day-row" data-tags="news rules"><div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot na"></span></div>
+        <div><div class="t">Thursday, 3 September 2026</div><div class="s">NEWS ✓ · RULES ✓ · + podcast 11m 45s</div></div></div>
+      <div class="day-row" data-tags="news rules"><div class="dots"><span class="dot"></span><span class="dot miss"></span><span class="dot na"></span></div>
+        <div><div class="t">Wednesday, 2 September 2026</div><div class="s">NEWS ✓ · RULES did-not-file</div></div></div>
+      <div class="day-row" data-tags="news rules weekly"><div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+        <div><div class="t">Monday, 31 August 2026</div><div class="s">NEWS ✓ · RULES ✓ · WEEKLY ✓</div></div></div>
+      <div class="day-row" data-tags="news rules"><div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot na"></span></div>
+        <div><div class="t">Friday, 28 August 2026</div><div class="s">NEWS ✓ · RULES ✓</div></div></div>
+      <div class="day-row" data-tags="news rules weekly"><div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+        <div><div class="t">Monday, 24 August 2026</div><div class="s">NEWS ✓ · RULES ✓ · WEEKLY ✓</div></div></div>
+    </div>
+  </div>
+</div></section>
+
+<nav class="bnav">
+  <button data-view="today" aria-current="true"><span class="i">◫</span>TODAY</button>
+  <button data-view="article" aria-current="false"><span class="i">◨</span>ARTICLE</button>
+  <button data-view="archive" aria-current="false"><span class="i">◔</span>ARCHIVE</button>
+</nav>
+<div class="snack" id="snack"></div>
+
+<script>
+  // view router
+  function goto(v){
+    document.querySelectorAll('.view').forEach(s=>s.classList.remove('on'));
+    document.getElementById('view-'+v).classList.add('on');
+    document.querySelectorAll('[data-view]').forEach(b=>b.setAttribute('aria-current', b.dataset.view===v?'true':'false'));
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>goto(b.dataset.view)));
+  document.querySelectorAll('[data-goto]').forEach(b=>b.addEventListener('click',()=>goto(b.dataset.goto)));
+  document.querySelectorAll('.open-article').forEach(b=>b.addEventListener('click',()=>goto('article')));
+  document.querySelectorAll('.day-row').forEach(r=>r.addEventListener('click',()=>goto('article')));
+
+  // AM / PM (morning / evening)
+  const am=document.getElementById('amBtn'),pm=document.getElementById('pmBtn');
+  function setMode(e){document.body.classList.toggle('evening',e);
+    am.classList.toggle('on',!e);pm.classList.toggle('on',e);}
+  am.addEventListener('click',()=>setMode(false));pm.addEventListener('click',()=>setMode(true));
+
+  // scan cards: tap = mark read
+  const cards=[...document.querySelectorAll('.scan-card')],rc=document.getElementById('readCount');
+  cards.forEach(c=>{c.addEventListener('click',()=>{c.classList.toggle('read');
+    rc.textContent='READ COMPLETION: '+document.querySelectorAll('.scan-card.read').length+' / 3 ITEMS';});});
+
+  // fake audio player
+  let playing=false,sec=198;const DUR=705,bar=document.getElementById('pbar'),
+    tCur=document.getElementById('tCur'),play=document.getElementById('playBtn');
+  const fmt=s=>String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
+  let timer=null;
+  play.addEventListener('click',()=>{playing=!playing;play.textContent=playing?'⏸':'▶';
+    if(playing){timer=setInterval(()=>{sec=Math.min(DUR,sec+1);tCur.textContent=fmt(sec);
+      bar.style.width=(sec/DUR*100)+'%';if(sec>=DUR){playing=false;play.textContent='▶';clearInterval(timer);}},1000);}
+    else clearInterval(timer);});
+  const spds=['1x','1.25x','1.5x','2x'];let si=2;
+  document.getElementById('spdBtn').addEventListener('click',e=>{si=(si+1)%spds.length;e.target.textContent=spds[si];});
+  document.getElementById('trxBtn').addEventListener('click',e=>{
+    const t=document.getElementById('trx');t.classList.toggle('on');
+    e.target.textContent=t.classList.contains('on')?'[–] Hide Verbatim Transcript':'[+] View Verbatim Transcript';});
+
+  // archive search + chips
+  const q=document.getElementById('q');let f='all';
+  function filt(){const term=q.value.toLowerCase();
+    document.querySelectorAll('.day-row').forEach(r=>{
+      const okF=f==='all'||r.dataset.tags.includes(f);
+      const okQ=!term||r.textContent.toLowerCase().includes(term);
+      r.style.display=okF&&okQ?'flex':'none';});}
+  q.addEventListener('input',filt);
+  document.querySelectorAll('#chips button').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('#chips button').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');f=b.dataset.f;filt();}));
+
+  // snackbar
+  const snack=document.getElementById('snack');let st=null;
+  function toast(m){snack.textContent=m;snack.classList.add('on');
+    clearTimeout(st);st=setTimeout(()=>snack.classList.remove('on'),2200);}
+  document.querySelectorAll('[data-toast]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();toast(a.dataset.toast);}));
+  document.getElementById('dossierLink').addEventListener('click',e=>{e.preventDefault();toast('PDF dossier export comes with the full build');});
+</script>
+</body>
+</html>

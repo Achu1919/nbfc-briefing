@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<title>The Briefing</title>
+<title>The Briefing — personal daily brief (working demo)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-<script src="./data.js"></script>
+<script src="../../data.js"></script>
 <style>
 :root{
   --bg:#eef1f8; --card:#ffffff; --card2:#f4f6fc;
@@ -534,9 +534,9 @@ document.querySelectorAll('[data-goto]').forEach(function(b){b.addEventListener(
 /* theme */
 var am=$('amBtn'),pm=$('pmBtn');
 function setMode(e){document.body.classList.toggle('evening',e);am.classList.toggle('on',!e);pm.classList.toggle('on',e);
-  try{localStorage.setItem('nbfc-briefing-mode',e?'evening':'morning');}catch(x){}}
+  try{localStorage.setItem('briefing-demo-mode',e?'evening':'morning');}catch(x){}}
 am.addEventListener('click',function(){setMode(false);});pm.addEventListener('click',function(){setMode(true);});
-try{if(localStorage.getItem('nbfc-briefing-mode')==='evening')setMode(true);}catch(x){}
+try{if(localStorage.getItem('briefing-demo-mode')==='evening')setMode(true);}catch(x){}
 /* read state */
 var readSet={};
 function isRead(r){return !!readSet[r.id];}
@@ -607,7 +607,7 @@ function loadAudio(day){
   var idx=data.days.indexOf(day),tries=data.days.slice(idx,idx+4).map(function(d){return d.id;});
   (function next(i){
     if(i>=tries.length)return;
-    fetch('./days/'+tries[i]+'/podcast-script.txt').then(function(r){if(!r.ok)throw 0;return r.text();}).then(function(t){
+    fetch('../../days/'+tries[i]+'/podcast-script.txt').then(function(r){if(!r.ok)throw 0;return r.text();}).then(function(t){
       if(!t||t.length<200){next(i+1);return;}
       audioText=t;aDur=Math.round(t.split(/\s+/).length/(2.4*aRate));
       $('audioTrx').textContent=t;

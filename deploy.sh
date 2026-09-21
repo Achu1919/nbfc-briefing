@@ -1,23 +1,11 @@
 #!/usr/bin/env bash
-# nbfc-briefing deploy: rebuild data.js, commit, push to GitHub
-# Vercel auto-deploys from the GitHub push.
+# nbfc-briefing deploy — wrapper around the canonical Python deploy script.
+#
+# The real implementation lives at:
+#   C:/Users/gopal/AppData/Local/hermes/profiles/jarvis/scripts/nbfc-deploy.py
+# It is what the "NBFC Deploy to Vercel" cron job (jarvis profile, 9:00 AM IST) runs.
+# Logic is Python because cron .sh jobs on Windows route through `shutil.which("bash")`,
+# which can hit C:\Windows\System32\bash.exe (the WSL stub) and fail.
+# This wrapper is only for manual runs from a Git Bash console.
 set -euo pipefail
-
-REPO="C:/Users/gopal/NBFC Briefing"
-cd "$REPO"
-
-echo "=== Rebuilding data.js ==="
-python publish.py
-
-echo "=== Git status ==="
-git add -A
-CHANGES=$(git diff --cached --stat)
-if [ -z "$CHANGES" ]; then
-  echo "No changes to commit. Done."
-  exit 0
-fi
-
-TODAY=$(date +%Y-%m-%d)
-git commit -m "daily: update briefing for $TODAY"
-git push origin master
-echo "=== Pushed to GitHub. Vercel will auto-deploy. ==="
+exec python "C:/Users/gopal/AppData/Local/hermes/profiles/jarvis/scripts/nbfc-deploy.py"

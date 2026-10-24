@@ -1,0 +1,14 @@
+# NBFC Regulatory Log
+
+One line per instrument seen by the daily regulatory check. Tags: [NEW_REG] new rule binding NBFCs · [CIRCULAR] numbered circular · [DRAFT] consultation · [CONTEXT] not binding on NBFCs, logged for completeness. MFL = Muthoot Fincorp Ltd (Middle Layer), not Muthoot Finance.
+
+| Logged (IST) | Issuer | Reference | Summary | Effective | NBFC/MFL impact | URL | Tag |
+|---|---|---|---|---|---|---|---|
+| 2026-10-24 | RBI | RBI/2026-27/297 | Commercial Banks – Capital Adequacy Eleventh Amendment: leverage ratio aligned to Basel LR 2017 (D-SIBs 4%, others 3.5%) | 2027-04-01 | None (banks only) | https://www.rbi.org.in/scripts/NotificationUser.aspx?Id=13743 | [CONTEXT] |
+| 2026-10-24 | RBI | RBI/2026-27/299 | Commercial Banks – Forthcoming Instructions Second Amendment Directions | per circular | None (banks only) | https://www.rbi.org.in/Scripts/NotificationUser.aspx | [CONTEXT] |
+| 2026-10-24 | RBI (FED) | RBI/FED/2026-27/298, A.P. (DIR Series) No. 28 | FEMA compounding of certain contraventions delegated to Regional Offices | 2026-10-23 | None unless MFL compounds a FEMA contravention | https://www.rbi.org.in/Scripts/NotificationUser.aspx | [CONTEXT] |
+| 2026-10-24 | RBI | PR 63859 (Bulletin Oct 2026) | Article: Performance of the NBFC Sector, Review for 2025 (staff study) | n/a | Context only | https://www.thehindubusinessline.com/money-and-banking/nbfcs-lose-ground-despite-stronger-profitability-better-asset-quality-rbi-study/article71617268.ece | [CONTEXT] |
+| 2026-10-24 | SEBI | 23 Oct 2026 circular | Research analysts: call records | per circular | None | https://www.sebi.gov.in/sebiweb/home/HomeAction.do?doListing=yes&sid=1&ssid=7&smid=0 | [CONTEXT] |
+| 2026-10-24 | IBBI | — | No new instrument (last circulars 24 Sep 2026) | — | — | https://ibbi.gov.in/en/legal-framework/circulars | [CONTEXT] |
+| 2026-10-24 (backfill) | SEBI | HO/17/11/22(1)2026-DDHS-POD1 (7 Oct 2026) | Credit Risk-o-Meter: Chapter II-C of NCS Master Circular; six-level colour meter on debt offer docs/ads/OBPPs, lowest rating drives it | 2026-11-21 (45 days from issue, computed) | Next listed MFL NCD tranche / PP after 21 Nov | https://www.sebi.gov.in/legal/circulars/oct-2026/introduction-of-credit-risk-o-meter-as-an-additional-disclosure-mechanism-for-debt-securities_105081.html | [CIRCULAR] |
+| 2026-10-24 (backfill) | RBI | RBI/2026-27/296 (19 Oct 2026) | UAPA s51A: UNSC 1267 list, amendment of 3 entries | 2026-10-19 | KYC/FIU screening update | https://www.rbi.org.in/Scripts/BS_CircularIndexDisplay.aspx | [CIRCULAR] |
